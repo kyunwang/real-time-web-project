@@ -1,5 +1,8 @@
 # real-time-web-project
 
+The code is located right **[HERE](https://github.com/kyunwang/vr-music)**
+
+
 This repo will hold the project you're going to build during the last two weeks of RTW. It functions as a way to show you've attained the following learning goals of this course:
 
 * Build a Node Web App which consumes an external data source through an API and serves a frontend using routing and templating techniques.
