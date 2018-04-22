@@ -1,0 +1,342 @@
+// Remove the blue yellow red bg when done
+:root {
+	--black: #0f0f0f;
+	--white: #fff; //  --fonts: "hiragino sans", serif;
+	--grey: #B7B7B7;
+	--primary-color: #F32D45;
+
+
+	--def-transition: .3s ease-in;
+
+
+	--fonts: "hiragino sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+		Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+/*==========================
+=== General styling and resets
+===========================*/
+
+html,
+body {
+	height: 100%;
+}
+
+html {
+	box-sizing: border-box;
+	background: var(--black);
+	color: var(--white);
+	font-family: var(--fonts);
+}
+
+body {
+	margin: 0;
+	// overflow: hidden;
+	scroll-behavior: smooth;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+h1, h2, h3,
+p {
+	margin: 0;
+}
+
+a,
+:visited,
+:active {
+	text-decoration: none;
+	color: var(--white);
+}
+
+/*==========================
+=== Navigation
+===========================*/
+
+body > nav {
+	ul {
+		//   display: flex;
+	}
+}
+
+li {
+	display: inline-block;
+}
+
+.nav__side {
+	ul {
+		display: flex;
+	}
+}
+
+@supports (display: grid) {
+	@media all and (min-width: 43em) {
+		.nav__side {
+			font-weight: 200;
+			text-align: center;
+			// grid-area: side-nav;
+			// grid-row-start: 2;
+			position: fixed;
+			z-index: 100;
+			background: var(--black);
+		
+			ul {
+				flex-direction: column;
+			}
+		
+			li {
+				padding: .4rem;
+			}
+		
+			a {
+				display: block;
+			}
+		
+			p {
+				font-size: .8rem;
+				margin: 0;
+				text-transform: uppercase;				
+			}
+		
+			svg {
+				width: 2rem;
+				fill: var(--grey);
+			}
+		
+		}
+		
+		.nav__music {
+			grid-area: header;
+			grid-column-start: 2;
+			align-self: end;
+
+			a {
+				position: relative;
+				font-size: 1.3rem;
+				font-weight: 800;
+				color: var(--grey);
+
+				transition: color var(--def-transition);
+
+				&:last-of-type {
+					margin-right: 2rem;
+				}
+
+				&:hover,
+				&:focus {
+					color: var(--white);
+				}
+			}
+			
+			.current {
+				font-size: 2.2rem;
+				color: var(--white);
+				&::after {
+					content: "";
+					position: absolute;
+					bottom: -.4em;
+					left: 0;
+					right: 0;
+					margin-left: auto;
+					margin-right: auto;
+
+					height: 2px;
+					width: 30%;
+					background: var(--primary-color);
+				}
+			}
+		}
+
+
+	}
+}
+
+
+/*==========================
+=== 
+===========================*/
+
+.music__overview {
+}
+
+.music__detail {
+	table {
+		padding-left: 2rem;
+		// display: flex;
+		// flex-direction: column;
+		p {
+			display: inline-block;
+		}
+	}
+
+
+	img {
+		display: block;
+		width: 100%;
+	}
+}
+
+.music__list--item {
+	display: block;
+	position: relative;
+
+	&::before {
+		content: "";
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		background: linear-gradient(-20deg, var(--black) 0%, transparent 65%);
+	}
+
+	p {
+		font-weight: 700;
+		font-size: 1.5em;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		font-size: 1em;
+		text-align: right;
+		margin: 0.5em;
+		width: 70%;
+	}
+
+	img {
+		display: block;
+		width: 100%;
+	}
+}
+
+@supports (display: grid) {
+	body {
+		// background: red;
+
+		display: grid; //   grid-template-columns: 1fr 1fr;
+	}
+
+	.music__container {
+		display: grid; //   grid-template-rows: 70
+		grid-template-columns: 1fr 1fr; //   grid-template-columns: minmax(15rem, 1fr) minmax(15rem, 1fr);
+		// margin: 0 1.5rem;
+		margin: 0 1.5rem;
+	}
+
+	@media all and (min-width: 43em) {
+		body {
+			// background: yellow;
+
+			grid-template-columns: 5rem auto;
+			grid-template-rows: 10rem 1fr 10rem;
+			grid-gap: 1rem;
+			grid-template-areas: 
+				"header"
+				"music-list"
+				"music-player"
+			;
+		}
+
+		main {
+			grid-area: music-list;
+			width: 100vw;
+			::-webkit-scrollbar { 
+				display: none; 
+			}
+		}
+
+		.music__header {
+			grid-area: header;
+			grid-column-start: 2;
+			align-self: end;
+			position: relative;
+
+			h2 {
+				font-size: 10vw;
+				line-height: 1.2;
+				// Maybe shadow??
+				text-shadow: -5px 2px 15px var(--black);
+
+				transform: translate(-5%, 55%);
+				z-index: 100;
+			}
+		}
+		
+		.music__container {
+			grid-template-rows: 1fr 1fr;
+			grid-template-columns: 5em; // Just for the first whitespace, then auto
+			grid-auto-flow: column;
+			// grid-auto-columns: repeat(auto-fill, minmax(100px, 200px));
+			grid-auto-columns: 14rem; // 480px max-height 
+
+			overflow-x: scroll;
+
+			// width: 100vw;
+			margin: 0;
+
+			&::after {
+				pointer-events: none;
+				content: "";
+				position: fixed;
+				right: 0;
+				left: 100%;
+				transform: translateX(-80%);
+				// height: 100%;
+
+				height: 28rem;
+				width: 30%;
+				background: transparent;
+				background: linear-gradient(-90deg, var(--black) 0%, transparent 100%);
+
+				padding: 2em;
+			}
+
+			li:first-of-type {
+				grid-row: span 2;
+				grid-column: span 2;
+			}
+		}
+
+		.music__player {
+			grid-area: music-player;
+		}
+
+		.music__detail {
+			display: grid;
+			// grid-template-columns: 
+
+			width: calc(100% - 12rem);
+			margin: 0 6rem;
+
+		}
+
+	}
+
+	/*==========================
+	=== End 43em
+	=== Start 55em
+	===========================*/
+
+	@media all and (min-width: 55em) {
+		body {
+			// background: blue;
+
+			grid-gap: 2rem;
+		}
+
+		.music__detail {
+			grid-template-columns: 45% auto;
+			width: calc(100% - 14rem);
+			margin: 0 7rem;
+		}
+	}
+}
