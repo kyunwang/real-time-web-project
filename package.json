@@ -1,0 +1,56 @@
+{
+	"name": "vr-music",
+	"version": "1.0.0",
+	"description": "A place where your posted links in slack are aggregated",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kyunwang/vr-music.git"
+	},
+	"author": "Kang Yun Wang(Kevin Wang)",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/kyunwang/vr-music/issues"
+	},
+	"homepage": "https://github.com/kyunwang/vr-music#readme",
+	"main": "server/index.js",
+	"scripts": {
+		"start": "node server/index.js",
+		"dev": "nodemon server/index.js --inspect",
+		"dev:node": "node server/index.js --inspect=127.0.0.0:4300",
+		"dev:expose": "nodemon server/index.js & npm run expose",
+		"watch": "npm run watch:css & npm run watch:js & npm run dev",
+		"watch:css": "node-sass --watch src/styles --output public/",
+		"watch:js": "watchify src/scripts/index.js --outfile public/bundle.js",
+		"build": "npm run build:server",
+		"build:js":
+			"browserify src/scripts/index.js > dist/bundle.js && uglifyjs dist/bundle.js --compress --output dist/bundle.js",
+		"build:server": "npm run clean && mkdir -p dist && babel server -s -D -d dist",
+		"clean": "rimraf dist",
+		"expose": "ngrok http 4390",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"dependencies": {
+		"body-parser": "^1.18.2",
+		"dotenv": "^5.0.1",
+		"express": "^4.16.3",
+		"mongoose": "^5.0.15",
+		"node-fetch": "^2.1.2",
+		"pug": "^2.0.3",
+		"spotify-web-api-node": "^3.0.0"
+	},
+	"devDependencies": {
+		"babel-cli": "^6.26.0",
+		"babel-preset-env": "^1.6.1",
+		"browserify": "^16.2.0",
+		"ngrok": "^3.0.1",
+		"node-sass": "^4.8.3",
+		"nodemon": "^1.17.3",
+		"prettier": "1.12.1",
+		"rimraf": "^2.6.2",
+		"uglifyjs": "^2.4.11",
+		"watchify": "^3.11.0"
+	},
+	"babel": {
+		"presets": ["env"]
+	}
+}

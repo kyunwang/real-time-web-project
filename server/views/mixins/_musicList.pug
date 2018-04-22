@@ -1,0 +1,5 @@
+mixin musicList(list = {})
+	//- id, images [0] .width/height = 300 ,  name, tracks, type
+	a(class="music__list--item" href=`/album/${list.id}`)
+		img(src=list.images[0].url, alt="")
+		p= list.name

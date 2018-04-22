@@ -1,44 +1,63 @@
-# real-time-web-project
+# VR Music
+This is a Conceptual prototype of a Music player where people can listen to music from the [Spotify API][api]. There is a public playlist where the guests/users can add and upvote tracks. The main focus is the public music room which is a room where you can immerse yourself in the music in VR.
+
+The process document **[HERE](process.md)**
+
 <!-- This repo will hold the project you're going to build during the last two weeks of RTW. It functions as a way to show you've attained the following learning goals of this course:
 
-* Build a Node Web App which consumes an external data source through an API and serves a frontend using routing and templating techniques.
-* Create a "live" web app which reflects changes to the back-end data model in reactive front-end views, using real-time, event-based, messaging technologies like sockets or server-sent-events.
-* Describe their work in a professional readme with insightful diagrams showing the life cycle of their data. -->
+- Build a Node Web App which consumes an external data source through an API and serves a frontend using routing and templating techniques.
+- Create a "live" web app which reflects changes to the back-end data model in reactive front-end views, using real-time, event-based, messaging technologies like sockets or server-sent-events.
+- Describe their work in a professional readme with insightful diagrams showing the life cycle of their data. -->
+
 
 # Table of Content
 - [Getting started](#getting-started)
 - [Features](#features)
 - [API](#api)
-
-A overview of all links posted in channels in your slack channel which you have joined.
-
-This project will be using the [Slack RTM API][api] and will not work through a slackbot.
-
-
-
-<!-- ☝️ replace this description -->
+- [Tools](#tools)
 
 <!-- Add a nice image here at the end of the week, showing off your shiny frontend 📸 -->
 
 # Getting started
-The installing information will be placed here
+If you want to work on this project, follow these steps:
+1. First we clone (fork if you want) the repo.
+	Run `git clone https://github.com/kyunwang/vr-music.git` in your terminal
+2. `cd` to the repo and run `npm install` to install the dependencies
+3. Run `npm start` to run the server
+4. Go to `http://localhost:4300/`
 
-<!-- ...but how does one use this project? What are its features 🤔 -->
 # Features
-The features will be here
+The following features are/will be added to application:
+- Listening to music in public rooms.
+- 
 
 <!-- What external data source is featured in your project and what are its properties 🌠 -->
+
 # API
-The API information will be documented here
+The API information will be documented here.
+
+This application is using the Web API from Spotify.
+
 <!-- rate-limit, authorization method, API methods, etc. -->
 
-This app makes use of the [Slack RTM API][api]
+<!-- Add/note the used package here -->
+
+This app makes use of the [Spotify API][api]
 
 ## Limitation
-You cannot easily work with this API locally. You will have to use something similar to `ngrok` to be able to develop and test locally. Without `ngrok` you will need to redeploy everytime to test.
+The limitations of the API will be documented here
 
-There are *Rate limit tiers* from tier 1 to 4 and a special tier.
-From tier 1 being 1+ calls per minute, 20+, 50+, 100+ and *varies* respectively.
+- The API requires OAUTH 2.0 for every request you make.
+- You require a Premium account to be able to use the Player endpoints
+
+# Tools
+
+Here are the tools used
+
+<!-- The following tools are used:
+- Template engine: Pug
+- Bundler: Webpack or Browserify?
+- Babel -->
 
 <!-- Where do the 0️⃣s and 1️⃣s live in your project? What db system are you using?-->
 
@@ -46,5 +65,4 @@ From tier 1 being 1+ calls per minute, 20+, 50+, 100+ and *varies* respectively.
 
 <!-- How about a license here? 📜 (or is it a licence?) 🤷 -->
 
-
-[api]: https://api.slack.com/rtm
+[api]: https://developer.spotify.com/web-api/
