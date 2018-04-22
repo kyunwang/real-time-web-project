@@ -1,0 +1,38 @@
+extends layout
+
+include mixins/_sideNav
+
+block content
+	header.music__header
+		h2= data.name
+
+	main
+		+sideNav()
+
+		section.music__detail
+			div
+				img(src=data.playlist.images[0].url, alt="")
+			if data.playlist.tracks
+				table
+					tr
+						th Title
+						th Duration
+						th
+
+
+					each track in data.playlist.tracks.items
+						if track.track
+							- track = track.track
+							//- pre= h.dump(track)
+
+						//- pre= h.dump(track.track)
+						tr
+							td= track.name
+							td= h.milliToMinSec(track.duration_ms) 
+							td
+								button(id=track.id class="track__add" data-uri=track.uri) + 
+
+
+	script(src="/public/socket.io/socket.io.js")
+	script.
+		 var socket = io();

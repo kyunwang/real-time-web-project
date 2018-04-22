@@ -21,6 +21,7 @@ router.get('/album/:id', musicController.albumDetail);
 
 // Rooms
 router.get('/rooms', roomController.showRooms);
+router.get('/rooms/:id', roomController.singleRoom);
 router.get('/rooms/new-room', roomController.roomForm);
 router.post('/rooms/new-room', roomController.addRoom);
 

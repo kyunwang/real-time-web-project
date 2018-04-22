@@ -36,7 +36,6 @@ exports.newReleased = (req, res) => {
 		.getNewReleases()
 		// .getCategories() // Discover
 		.then(data => {
-			console.log(data.body.albums);
 			res.render('musicOverview', {
 				message: 'Hello Server!',
 				data: data.body.albums || 'nope',
@@ -77,8 +76,6 @@ exports.publicPlaylist = (req, res) => {
 		.getPlaylist(publicId, publicPlaylistId)
 		// .getPlaylistTracks('1169335343', '7mCLaqlcQ61U9HPMbGXwUd')
 		.then(data => {
-			console.log(data);
-
 			res.render('musicDetail', {
 				message: 'Hello Server!',
 				data: data.body || 'nope',
@@ -111,7 +108,6 @@ exports.play = (req, res) => {
 	spotifyApi.getMyCurrentPlaybackState({}).then(
 		function(data) {
 			// Output items
-			console.log('Now Playing: ', data.body);
 			res.redirect('/releases');
 		},
 		function(err) {
