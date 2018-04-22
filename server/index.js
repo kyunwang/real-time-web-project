@@ -19,12 +19,13 @@ require('./models/Room');
 
 const app = require('./app');
 
-const server = app.listen(process.env.PORT, function() {
+// const server = app.listen(process.env.PORT, function() {
+app.listen(process.env.PORT, function() {
 	console.log('Listening to port: ', process.env.PORT);
 });
 
-const io = require('socket.io')(server);
+// const io = require('socket.io')(server);
 
-io.on('connection', function(socket) {
-	console.log('a user connected');
-});
+// io.on('connection', function(socket) {
+// 	console.log('a user connected');
+// });

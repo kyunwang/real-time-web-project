@@ -27,7 +27,10 @@ app.use((req, res, next) => {
 	next();
 });
 
+// Check the existance for accesstoken
 app.use(async (req, res, next) => {
+	// Get token (does not make an api call
+	// Might need to save it in a session
 	const accessToken = await spotifyApi.getAccessToken();
 
 	// If this token is not undefined
