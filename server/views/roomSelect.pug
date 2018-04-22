@@ -1,0 +1,38 @@
+extends layout
+
+include mixins/_sideNav
+
+block content
+	nav.nav--top
+		ul
+			li
+				a(class="current" href="/rooms") Public rooms
+			li
+				a(class="" href="/") My rooms
+			li
+				a(class="" href="/rooms/new-room") Add room
+
+	main
+		+sideNav()
+		
+
+		//- section.music__overview
+		//- section.content__container
+			
+			
+
+		ul.content__container
+			b
+			li
+				a(href="/rooms/new-room") New room
+			//- if data.items
+			//- 	each list in data.items
+			//- 		li
+			//- 			+musicList(list)
+
+	section.music__player
+		p
+
+	script(src="/public/socket.io/socket.io.js")
+	script.
+		 var socket = io();

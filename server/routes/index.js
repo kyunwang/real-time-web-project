@@ -2,6 +2,7 @@ const express = require('express');
 
 const accountController = require('../controllers/accountController');
 const musicController = require('../controllers/musicController');
+const roomController = require('../controllers/roomController');
 
 const router = express.Router();
 
@@ -18,6 +19,11 @@ router.post('/playlist/add/:uri', musicController.addToPlaylist);
 
 router.get('/album/:id', musicController.albumDetail);
 
+// Rooms
+router.get('/rooms', roomController.showRooms);
+router.get('/rooms/new-room', roomController.roomForm);
+
+// User controller
 router.get('/login', accountController.login);
 router.get('/auth', accountController.authorize);
 

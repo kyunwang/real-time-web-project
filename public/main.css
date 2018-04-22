@@ -50,48 +50,48 @@ a,
 li {
   display: inline-block; }
 
-.nav__side ul {
+.nav--side ul {
   display: flex; }
 
 @supports (display: grid) {
   @media all and (min-width: 43em) {
-    .nav__side {
+    .nav--side {
       font-weight: 200;
       text-align: center;
       position: fixed;
       z-index: 100;
       background: var(--black); }
-      .nav__side ul {
+      .nav--side ul {
         flex-direction: column; }
-      .nav__side li {
+      .nav--side li {
         padding: .4rem; }
-      .nav__side a {
+      .nav--side a {
         display: block; }
-      .nav__side p {
+      .nav--side p {
         font-size: .8rem;
         margin: 0;
         text-transform: uppercase; }
-      .nav__side svg {
+      .nav--side svg {
         width: 2rem;
         fill: var(--grey); }
-    .nav__music {
+    .nav--top {
       grid-area: header;
       grid-column-start: 2;
       align-self: end; }
-      .nav__music a {
+      .nav--top a {
         position: relative;
         font-size: 1.3rem;
         font-weight: 800;
         color: var(--grey);
         transition: color var(--def-transition); }
-        .nav__music a:last-of-type {
+        .nav--top a:last-of-type {
           margin-right: 2rem; }
-        .nav__music a:hover, .nav__music a:focus {
+        .nav--top a:hover, .nav--top a:focus {
           color: var(--white); }
-      .nav__music .current {
+      .nav--top .current {
         font-size: 2.2rem;
         color: var(--white); }
-        .nav__music .current::after {
+        .nav--top .current::after {
           content: "";
           position: absolute;
           bottom: -.4em;
@@ -143,7 +143,7 @@ li {
 @supports (display: grid) {
   body {
     display: grid; }
-  .music__container {
+  .content__container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin: 0 1.5rem; }
@@ -169,14 +169,14 @@ li {
         text-shadow: -5px 2px 15px var(--black);
         transform: translate(-5%, 55%);
         z-index: 100; }
-    .music__container {
+    .content__container {
       grid-template-rows: 1fr 1fr;
       grid-template-columns: 5em;
       grid-auto-flow: column;
       grid-auto-columns: 14rem;
       overflow-x: scroll;
       margin: 0; }
-      .music__container::after {
+      .content__container::after {
         pointer-events: none;
         content: "";
         position: fixed;
@@ -188,7 +188,7 @@ li {
         background: transparent;
         background: linear-gradient(-90deg, var(--black) 0%, transparent 100%);
         padding: 2em; }
-      .music__container li:first-of-type {
+      .content__container li:first-of-type {
         grid-row: span 2;
         grid-column: span 2; }
     .music__player {
@@ -208,3 +208,11 @@ li {
       grid-template-columns: 45% auto;
       width: calc(100% - 14rem);
       margin: 0 7rem; } } }
+
+/*==========================
+=== Room form
+===========================*/
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 6rem; }

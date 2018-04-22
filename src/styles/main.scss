@@ -73,7 +73,7 @@ li {
 	display: inline-block;
 }
 
-.nav__side {
+.nav--side {
 	ul {
 		display: flex;
 	}
@@ -81,7 +81,7 @@ li {
 
 @supports (display: grid) {
 	@media all and (min-width: 43em) {
-		.nav__side {
+		.nav--side {
 			font-weight: 200;
 			text-align: center;
 			// grid-area: side-nav;
@@ -115,7 +115,7 @@ li {
 		
 		}
 		
-		.nav__music {
+		.nav--top {
 			grid-area: header;
 			grid-column-start: 2;
 			align-self: end;
@@ -225,7 +225,7 @@ li {
 		display: grid; //   grid-template-columns: 1fr 1fr;
 	}
 
-	.music__container {
+	.content__container {
 		display: grid; //   grid-template-rows: 70
 		grid-template-columns: 1fr 1fr; //   grid-template-columns: minmax(15rem, 1fr) minmax(15rem, 1fr);
 		// margin: 0 1.5rem;
@@ -271,7 +271,7 @@ li {
 			}
 		}
 		
-		.music__container {
+		.content__container {
 			grid-template-rows: 1fr 1fr;
 			grid-template-columns: 5em; // Just for the first whitespace, then auto
 			grid-auto-flow: column;
@@ -339,4 +339,17 @@ li {
 			margin: 0 7rem;
 		}
 	}
+}
+
+
+/*==========================
+=== Room form
+===========================*/
+
+form {
+	display: flex;
+	flex-direction: column;
+	
+	// width: calc(100% - 12rem);
+	margin: 0 6rem;
 }
