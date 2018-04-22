@@ -22,8 +22,7 @@
 		"watch:css": "node-sass --watch src/styles --output public/",
 		"watch:js": "watchify src/scripts/index.js --outfile public/bundle.js",
 		"build": "npm run build:server",
-		"build:js":
-			"browserify src/scripts/index.js > dist/bundle.js && uglifyjs dist/bundle.js --compress --output dist/bundle.js",
+		"build:js": "browserify src/scripts/index.js > dist/bundle.js && uglifyjs dist/bundle.js --compress --output dist/bundle.js",
 		"build:server": "npm run clean && mkdir -p dist && babel server -s -D -d dist",
 		"clean": "rimraf dist",
 		"expose": "ngrok http 4390",
@@ -36,6 +35,7 @@
 		"mongoose": "^5.0.15",
 		"node-fetch": "^2.1.2",
 		"pug": "^2.0.3",
+		"socket.io": "^2.1.0",
 		"spotify-web-api-node": "^3.0.0"
 	},
 	"devDependencies": {
@@ -51,6 +51,8 @@
 		"watchify": "^3.11.0"
 	},
 	"babel": {
-		"presets": ["env"]
+		"presets": [
+			"env"
+		]
 	}
 }
