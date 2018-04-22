@@ -22,6 +22,7 @@ router.get('/album/:id', musicController.albumDetail);
 // Rooms
 router.get('/rooms', roomController.showRooms);
 router.get('/rooms/new-room', roomController.roomForm);
+router.post('/rooms/new-room', roomController.addRoom);
 
 // User controller
 router.get('/login', accountController.login);

@@ -1,6 +1,7 @@
 extends layout
 
 include mixins/_sideNav
+include mixins/_roomList
 
 block content
 	nav.nav--top
@@ -23,15 +24,20 @@ block content
 
 		ul.content__container
 			b
+			if rooms
+				each room in rooms
+					li
+						+roomList(room)
+		
 			li
 				a(href="/rooms/new-room") New room
-			//- if data.items
-			//- 	each list in data.items
-			//- 		li
-			//- 			+musicList(list)
+
 
 	section.music__player
 		p
+
+
+	//- pre= h.dump(rooms)
 
 	script(src="/public/socket.io/socket.io.js")
 	script.

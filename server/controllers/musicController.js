@@ -1,27 +1,14 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
 const spotifyApi = require('../../config/api');
 const { authorizeURL } = spotifyApi;
 
-const Playlist = mongoose.model('Playlist');
+// const Playlist = mongoose.model('Playlist');
 
 const publicId = '1169335343';
 const publicPlaylistId = '7mCLaqlcQ61U9HPMbGXwUd';
 
 exports.featuredPlaylist = async (req, res) => {
-	// console.log(spotifyApi.getAccessToken());
-	// new Cat({ name: 'Zildjian' });
-	// kitty.save().then(() => console.log('meow'));
-	// console.log(Playlist);
-	// try {
-	// 	const me = await spotifyApi.getMe();
-
-	// 	const list = await spotifyApi.getUserPlaylists(1169335343);
-	// 	// console.log(list.body.items);
-	// } catch (err) {
-	// 	console.log(err);
-	// }
-
 	spotifyApi
 		// .getTrack('3Qm86XLflmIXVm1wcwkgDK')
 		// .getPlaylistsForCategory()

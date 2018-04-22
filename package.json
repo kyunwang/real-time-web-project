@@ -15,14 +15,15 @@
 	"main": "server/index.js",
 	"scripts": {
 		"start": "node server/index.js",
-		"dev": "nodemon server/index.js --inspect",
-		"dev:node": "node server/index.js --inspect=127.0.0.0:4300",
+		"dev": "nodemon --inspect server/index.js",
+		"dev:node": "node server/index.js --inspect=127.0.0.1:4300",
 		"dev:expose": "nodemon server/index.js & npm run expose",
 		"watch": "npm run watch:css & npm run watch:js & npm run dev",
 		"watch:css": "node-sass --watch src/styles --output public/",
 		"watch:js": "watchify src/scripts/index.js --outfile public/bundle.js",
 		"build": "npm run build:server",
-		"build:js": "browserify src/scripts/index.js > dist/bundle.js && uglifyjs dist/bundle.js --compress --output dist/bundle.js",
+		"build:js":
+			"browserify src/scripts/index.js > dist/bundle.js && uglifyjs dist/bundle.js --compress --output dist/bundle.js",
 		"build:server": "npm run clean && mkdir -p dist && babel server -s -D -d dist",
 		"clean": "rimraf dist",
 		"expose": "ngrok http 4390",
@@ -51,8 +52,6 @@
 		"watchify": "^3.11.0"
 	},
 	"babel": {
-		"presets": [
-			"env"
-		]
+		"presets": ["env"]
 	}
 }

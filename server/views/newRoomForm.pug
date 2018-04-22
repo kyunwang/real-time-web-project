@@ -11,18 +11,18 @@ block content
 		+sideNav()
 
 		b
-		form(action=`/rooms/new-room` method="POST" enctype="multipart/form-data")
-			label(for="room-name") Room name
-			input(id="room-name" type="text" name="room-name" value="")
+		form(action=`/rooms/new-room` method="POST")
+			label(for="name") Room name
+			input(id="name" type="text" name="name" value="Public Room")
 			
 			//- Should become something like a dropdown with the available playlist from user
 			label(for="playlist") Use playlist
-			input(id="playlist" type="text" name="playlist")
+			input(id="playlist" type="text" name="playlist" value="7mCLaqlcQ61U9HPMbGXwUd")
 
 			p Room type
 			label(for="type-public") Public
-			input(id="type-public" type="radio" name="public" value="public")
+			input(id="type-public" type="radio" name="public" value="true" checked)
 			label(for="type-private") Private
-			input(id="type-private" type="radio" name="public" value="private")
+			input(id="type-private" type="radio" name="public" value="false")
 
 			input(type="submit" value="Add Room")
