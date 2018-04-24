@@ -34,7 +34,17 @@ block content
 							button(id=track.id class="track__add" data-uri=track.uri) + 
 	
 	section.music__player
-		p PLAYER
-
+		//- p PLAYER
 
 	//- pre= h.dump(data)
+
+	script(src="/public/socket.io/socket.io.js")
+	script.
+		var data = {
+			type: 'musicDetail',
+			name: '#{data.name}',
+			slug: '#{data.slug}',
+			playlist: '!{JSON.stringify(data.playlist)}',
+			//- owner: #{data.owner},
+		}
+	script(src="/public/bundle.js")
