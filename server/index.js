@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 // const socketController = require('./controllers/socketController');
 
 require('dotenv').config({ path: 'vars.env' });
@@ -14,11 +15,12 @@ mongoose.connection.on('error', err => {
 });
 
 // consting = require(our model)s
-require('./models/User');
+const User = require('./models/User');
 require('./models/Playlist');
-require('./models/Room');
+const Room = require('./models/Room');
 
 const app = require('./app');
+const sessionMiddleware = app.sessionMiddleware;
 
 const server = app.listen(process.env.PORT, function() {
 	console.log('Listening to port: ', process.env.PORT);
@@ -26,11 +28,18 @@ const server = app.listen(process.env.PORT, function() {
 
 const io = require('socket.io')(server);
 
+// Share express sessions with socket.io
+io.use(function(socket, next) {
+	sessionMiddleware(socket.request, socket.request.res, next);
+});
+
 io.on('connection', socket => {
 	console.log('test');
 
-	socket.on('joinRoom', function(room) {
+	socket.on('joinRoom', async function(room) {
 		console.log('Room joined', room);
+		console.log(socket.request.session);
+		// socket.handshake.session
 
 		socket.emit('joinRoom', room);
 		socket.join(room || 'Public Room');

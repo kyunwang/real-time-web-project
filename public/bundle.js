@@ -50,6 +50,8 @@ const { $, $$, addEvent, createNode } = h;
 			this.start();
 		},
 		start: function() {
+			console.log('Room start');
+
 			socket.emit('joinRoom', data.name || 'Public Room');
 
 			socket.on('joinRoom', function(room) {
@@ -96,8 +98,9 @@ const { $, $$, addEvent, createNode } = h;
 	if (data.type === 'musicDetail') {
 		playlist.init();
 	} else {
-		room.init();
 	}
+
+	room.init();
 })();
 
 },{"./helpers":1}]},{},[2]);

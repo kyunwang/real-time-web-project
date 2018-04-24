@@ -1,4 +1,8 @@
 const express = require('express');
+const session = require('express-session');
+const sharedsession = require('express-socket.io-session');
+const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo')(session);
 
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -11,6 +15,14 @@ const routes = require('./routes');
 
 const helpers = require('../src/scripts/helpers');
 
+const sessionMiddleware = session({
+	secret: process.env.SECRET,
+	key: process.env.KEY,
+	resave: false,
+	saveUninitialized: false,
+	store: new MongoStore({ mongooseConnection: mongoose.connection }),
+});
+
 // Setting the view engine
 app.set('view engine', 'pug').set('views', './server/views');
 
@@ -20,6 +32,9 @@ app.use('/public', express.static(path.join(__dirname, '../public')));
 
 // Use bodyparser
 app.use(bodyParser.json()).use(bodyParser.urlencoded({ extended: false }));
+
+// Use express session
+app.use(sessionMiddleware);
 
 // Add global middleware available in templates and all routes
 app.use((req, res, next) => {
@@ -41,6 +56,8 @@ app.use(async (req, res, next) => {
 			.then(data => {
 				console.log('DONE CLIENT AUTH');
 				// req.accessToken = data.body['access_token'];
+				req.session.userId = null;
+				req.session.name = 'Anonymous';
 				next();
 			})
 			.catch(err => {
@@ -56,3 +73,4 @@ app.use(async (req, res, next) => {
 app.use('/', routes);
 
 module.exports = app;
+module.exports.sessionMiddleware = sessionMiddleware;

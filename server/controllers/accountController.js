@@ -34,8 +34,10 @@ exports.authorize = async (req, res) => {
 				_id: theUser.body.id,
 				name: theUser.body.display_name || 'Music Lover',
 			}).save();
-			console.log(newUser);
 		}
+
+		req.session.userId = theUser.body.id;
+		req.session.userName = theUser.body.display_name;
 
 		res.redirect('/releases');
 	} catch (err) {}
