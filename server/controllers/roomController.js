@@ -40,8 +40,11 @@ exports.addRoom = async (req, res) => {
 	res.redirect(`/rooms`);
 };
 
-exports.singleRoom = async (req, res) => {
-	const room = await Room.findOne({ _id: req.params.id });
+exports.singleRoom = async (req, res, next) => {
+	const room = await Room.findOne({ slug: req.params.slug });
+	// console.log(room);
+
+	if (!room) return next();
 
 	res.render('singleRoom', { data: room });
 };
