@@ -1,9 +1,14 @@
 const mongoose = require('mongoose');
+const slug = require('slugs');
 
 const roomSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: 'A Name has to be assinged to a room',
+	},
+	slug: {
+		type: String,
+		unique: true,
 	},
 	public: {
 		type: Boolean,
@@ -23,7 +28,7 @@ roomSchema.pre('save', async function(next) {
 	// this.owner = user.id;
 	// this.playlist = playlist;
 	// this.public = Boolean(this.public);
-
+	this.slug = slug(this.name);
 	// console.log('CHECK', this);
 
 	next();
