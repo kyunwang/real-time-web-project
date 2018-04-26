@@ -5,9 +5,12 @@ const Room = mongoose.model('Room');
 
 const spotifyApi = require('../../config/api');
 
+const publicId = '1169335343';
+const publicPlaylistId = '7mCLaqlcQ61U9HPMbGXwUd';
+
 exports.showRooms = async (req, res) => {
 	const rooms = await Room.find();
-	console.log('ROOMS', rooms);
+	// console.log('ROOMS', rooms);
 
 	res.render('roomSelect', { rooms });
 };
@@ -19,7 +22,7 @@ exports.roomForm = (req, res) => {
 };
 
 exports.addRoom = async (req, res) => {
-	console.log('REQ', req.body);
+	// console.log('REQ', req.body);
 	try {
 		const user = await spotifyApi.getMe();
 		// console.log(user.body, user.body.id);

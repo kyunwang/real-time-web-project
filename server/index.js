@@ -26,6 +26,9 @@ const server = app.listen(process.env.PORT, function() {
 	console.log('Listening to port: ', process.env.PORT);
 });
 
+/*==========================
+=== Socket io part
+===========================*/
 const io = require('socket.io')(server);
 
 // Share express sessions with socket.io
@@ -33,13 +36,13 @@ io.use(function(socket, next) {
 	sessionMiddleware(socket.request, socket.request.res, next);
 });
 
+// Sockets start
 io.on('connection', socket => {
-	console.log('test');
-
 	socket.on('joinRoom', async function(room) {
 		console.log('Room joined', room);
 		console.log(socket.request.session);
 		// socket.handshake.session
+		addUserToRoom();
 
 		socket.emit('joinRoom', room);
 		socket.join(room || 'Public Room');
@@ -47,11 +50,22 @@ io.on('connection', socket => {
 	});
 
 	socket.on('addTrack', addTrack);
+
+	/*==========================
+	=== Socket (helper)function
+	===========================*/
+	async function addUserToRoom(data) {
+		// console.log(await User.findOne({ spotifyId: socket.request.session.userId }));
+		console.log('User added to room: ', socket.request.session.username);
+
+		// if ()
+	}
+
+	function addTrack(track) {
+		// Public room is the default for now
+		console.log('Server add track', track);
+
+		// Send to everyone
+		io.to('Public Room').emit('addTrack', track);
+	}
 });
-
-function addTrack(data) {
-	// Public room is the default for now
-	console.log('Server add track', data);
-
-	io.to('Public Room').emit('addTrack', 'Track added');
-}

@@ -12,6 +12,29 @@ exports.addEvent = function(event, elements, callback) {
 	});
 };
 
+exports.createNode = function(element = 'li', text = '', className, idName, dataAttr) {
+	const node = document.createElement(element);
+
+	if (text) {
+		const textNode = document.createTextNode(text);
+		node.appendChild(textNode);
+	}
+
+	if (className) {
+		node.classList.add(className);
+	}
+
+	if (idName) {
+		node.setAttribute('id', idName);
+	}
+
+	if (dataAttr) {
+		node.setAttribute('data', dataAttr);
+	}
+
+	return node;
+};
+
 // Dump is a handy debugging function we can use to sort of "console.log" our data
 exports.dump = function(obj) {
 	return JSON.stringify(obj, null, 2);

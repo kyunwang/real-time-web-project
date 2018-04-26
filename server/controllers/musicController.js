@@ -4,6 +4,9 @@ const spotifyApi = require('../../config/api');
 const { authorizeURL } = spotifyApi;
 
 // const Playlist = mongoose.model('Playlist');
+const mongoose = require('mongoose');
+
+const Room = mongoose.model('Room');
 
 const publicId = '1169335343';
 const publicPlaylistId = '7mCLaqlcQ61U9HPMbGXwUd';
@@ -92,6 +95,19 @@ exports.publicPlaylist = (req, res) => {
 
 exports.addToPlaylist = (req, res) => {
 	const { uri } = req.params;
+
+	// Room.update({
+	// 	username: req.user.username
+	//  }, {
+	// 	$set: {
+	// 	  "personalInfo.fullName": req.body.fullName
+	// 	}
+	//  }, function (err, user) {
+	// 	  if (err) throw error
+	// 	  console.log(user)
+	// 	  console.log("update user complete")
+	//  })
+
 	spotifyApi
 		.addTracksToPlaylist(publicId, publicPlaylistId, [uri])
 		.then(data => {

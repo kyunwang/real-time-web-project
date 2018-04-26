@@ -27,17 +27,26 @@ exports.authorize = async (req, res) => {
 		const theUser = await spotifyApi.getMe();
 
 		// console.log(User.findOne({ _id: theUser.body.id }, { lean: true }));
+		// console.log(User.findOne({ _id: theUser.body.id }));
 
-		if (!User.findOne({ _id: theUser.body.id })) {
-			console.log('User not found');
-			const newUser = await new User({
-				_id: theUser.body.id,
-				name: theUser.body.display_name || 'Music Lover',
-			}).save();
-		}
+		// const userExists =
+		User.findOne({ spotifyId: theUser.body.id }, async function(err, data) {
+			if (err) console.log(err);
+			// console.log('data', data);
+			if (!data) {
+				console.log('User not found');
+				const newUser = await new User({
+					// _id: theUser.body.id,
+					spotifyId: theUser.body.id,
+					name: theUser.body.display_name || 'Music Lover',
+				}).save();
+			}
+			// return data;
+		});
+		// console.log('2312321321', userExists);
 
 		req.session.userId = theUser.body.id;
-		req.session.userName = theUser.body.display_name;
+		req.session.username = theUser.body.display_name;
 
 		res.redirect('/releases');
 	} catch (err) {}
