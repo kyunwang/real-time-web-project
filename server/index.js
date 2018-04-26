@@ -40,12 +40,13 @@ io.use(function(socket, next) {
 io.on('connection', socket => {
 	socket.on('joinRoom', async function(room) {
 		console.log('Room joined', room);
-		console.log(socket.request.session);
+		// console.log(socket.request.session);
 		// socket.handshake.session
 		addUserToRoom();
 
 		socket.emit('joinRoom', room);
-		socket.join(room || 'Public Room');
+		// socket.join(room || 'Public Room');
+		socket.join('Public Room');
 		// io.to(room).emit('message', 'what is going on, party people?');
 	});
 
@@ -63,9 +64,10 @@ io.on('connection', socket => {
 
 	function addTrack(track) {
 		// Public room is the default for now
-		console.log('Server add track', track);
+		console.log('Server add track');
 
-		// Send to everyone
-		io.to('Public Room').emit('addTrack', track);
+		// Send to everyone except self
+		socket.broadcast.to('Public Room').emit('addTrack', track);
+		// io.to('Public Room').emit('addTrack', track);
 	}
 });

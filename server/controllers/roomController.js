@@ -16,8 +16,6 @@ exports.showRooms = async (req, res) => {
 };
 
 exports.roomForm = (req, res) => {
-	// const newRoom = new Room(req.body);
-
 	res.render('newRoomForm', {});
 };
 
@@ -37,15 +35,13 @@ exports.addRoom = async (req, res) => {
 	req.body.public = Boolean(req.body.public);
 
 	const newRoom = await new Room(req.body).save();
-	// console.log('RESULT', newRoom);
 
-	// res.redirect(`/rooms/${newRoom.id}`);
+	// res.redirect(`/room/${newRoom.id}`);
 	res.redirect(`/rooms`);
 };
 
 exports.singleRoom = async (req, res, next) => {
 	const room = await Room.findOne({ slug: req.params.slug });
-	// console.log(room);
 
 	if (!room) return next();
 

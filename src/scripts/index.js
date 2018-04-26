@@ -44,7 +44,7 @@ const { $, $$, addEvent, createNode, milliToMinSec } = h;
 			tr.appendChild(buttonCon);
 
 			const playlist = $('table');
-			console.log(playlist);
+			// console.log(playlist);
 
 			playlist.appendChild(tr);
 		},
@@ -77,7 +77,7 @@ const { $, $$, addEvent, createNode, milliToMinSec } = h;
 					console.error(`Error trying to add to public playlist: ${err}`);
 				});
 
-			// socket.emit('addTrack', track);
+			socket.emit('addTrack', track);
 		},
 	};
 

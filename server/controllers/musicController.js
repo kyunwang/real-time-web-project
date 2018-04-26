@@ -93,22 +93,10 @@ exports.publicPlaylist = (req, res) => {
 		});
 };
 
-exports.addToPlaylist = (req, res) => {
+exports.addToPlaylist = async (req, res) => {
 	const { uri } = req.params;
 
-	// Room.update({
-	// 	username: req.user.username
-	//  }, {
-	// 	$set: {
-	// 	  "personalInfo.fullName": req.body.fullName
-	// 	}
-	//  }, function (err, user) {
-	// 	  if (err) throw error
-	// 	  console.log(user)
-	// 	  console.log("update user complete")
-	//  })
-
-	spotifyApi
+	await spotifyApi
 		.addTracksToPlaylist(publicId, publicPlaylistId, [uri])
 		.then(data => {
 			console.log('DONE', data);
@@ -116,6 +104,19 @@ exports.addToPlaylist = (req, res) => {
 		.catch(err => {
 			console.log('ERROR: ', err);
 		});
+
+	const playlist = await spotifyApi.getPlaylist(publicId, publicPlaylistId);
+	// console.log(playlist);
+
+	Room.update(
+		{
+			playlist: playlist.body,
+		},
+		function(err, user) {
+			if (err) throw error;
+			console.log('update user complete');
+		}
+	);
 };
 
 exports.play = (req, res) => {
