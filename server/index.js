@@ -1,73 +1,81 @@
+const express = require('express');
+const session = require('express-session');
 const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo')(session);
+const path = require('path');
+const bodyParser = require('body-parser');
 
-// const socketController = require('./controllers/socketController');
+const spotifyApi = require('../config/api');
 
-require('dotenv').config({ path: 'vars.env' });
+// Require db first as models are used in the routes
+const db = require('./models/index');
+const routes = require('./routes');
 
-// const spotifyApi = require('../config/api');
+const helpers = require('../src/scripts/helpers');
 
-// Connect to our Database and handle any bad connections
-mongoose.connect(process.env.DATABASE);
-mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
-mongoose.connection.on('error', err => {
-	// console.error(`Error: ${err.message}`);
-	console.error(`Error: With database`);
-});
+const app = express();
+const server = require('http').createServer(app);
 
-// consting = require(our model)s
-const User = require('./models/User');
-require('./models/Playlist');
-const Room = require('./models/Room');
+const sockets = require('./sockets');
 
-const app = require('./app');
-const sessionMiddleware = app.sessionMiddleware;
-
-const server = app.listen(process.env.PORT, function() {
-	console.log('Listening to port: ', process.env.PORT);
-});
-
-/*==========================
-=== Socket io part
-===========================*/
 const io = require('socket.io')(server);
 
-// Share express sessions with socket.io
-io.use(function(socket, next) {
-	sessionMiddleware(socket.request, socket.request.res, next);
+const sessionMiddleware = session({
+	secret: process.env.SECRET,
+	key: process.env.KEY,
+	resave: false,
+	saveUninitialized: false,
+	store: new MongoStore({ mongooseConnection: mongoose.connection }),
 });
 
-// Sockets start
-io.on('connection', socket => {
-	socket.on('joinRoom', async function(room) {
-		console.log('Room joined', room);
-		// console.log(socket.request.session);
-		// socket.handshake.session
-		addUserToRoom();
+// Connect the sockets
+sockets(io, sessionMiddleware);
 
-		socket.emit('joinRoom', room);
-		// socket.join(room || 'Public Room');
-		socket.join('Public Room');
-		// io.to(room).emit('message', 'what is going on, party people?');
-	});
+// Setting the view engine
+app.set('view engine', 'pug').set('views', './server/views');
 
-	socket.on('addTrack', addTrack);
+// Set static route
+app.use('/public', express.static(path.join(__dirname, '../public')));
+app.use(bodyParser.json()).use(bodyParser.urlencoded({ extended: false }));
+app.use(sessionMiddleware);
 
-	/*==========================
-	=== Socket (helper)function
-	===========================*/
-	async function addUserToRoom(data) {
-		// console.log(await User.findOne({ spotifyId: socket.request.session.userId }));
-		console.log('User added to room: ', socket.request.session.username);
+// Add global middleware available in templates and all routes
+app.use((req, res, next) => {
+	res.locals.h = helpers;
+	req.spotifyApi = spotifyApi;
+	next();
+});
 
-		// if ()
+// Check the existance for accesstoken
+app.use(async (req, res, next) => {
+	// Get token (does not make an api call
+	// Might need to save it in a session
+	const accessToken = await spotifyApi.getAccessToken();
+
+	// If this token is not undefined
+	// if (!req.accessToken) {
+	if (!accessToken) {
+		spotifyApi
+			.clientAuth()
+			.then(data => {
+				console.log('DONE CLIENT AUTH');
+				// req.accessToken = data.body['access_token'];
+				req.session.userId = null;
+				req.session.name = 'Anonymous';
+				next();
+			})
+			.catch(err => {
+				console.error('CLIENT AUTH ERROR');
+			});
+	} else {
+		console.log('TOKEN EXISTS');
+		// Refresh here?
+		next();
 	}
+});
 
-	function addTrack(track) {
-		// Public room is the default for now
-		console.log('Server add track');
+app.use('/', routes);
 
-		// Send to everyone except self
-		socket.broadcast.to('Public Room').emit('addTrack', track);
-		// io.to('Public Room').emit('addTrack', track);
-	}
+server.listen(process.env.PORT || '8888', function() {
+	console.log('Listening to port: ', process.env.PORT);
 });
