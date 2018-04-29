@@ -27,17 +27,13 @@ app.set('view engine', 'pug').set('views', './server/views');
 
 // Set static route
 app.use('/public', express.static(path.join(__dirname, '../public')));
-// app.use('/', express.static(path.join(__dirname, '../public'), { maxAge: '31d' })); // This will cache the folder for 31days
-
-// Use bodyparser
 app.use(bodyParser.json()).use(bodyParser.urlencoded({ extended: false }));
-
-// Use express session
 app.use(sessionMiddleware);
 
 // Add global middleware available in templates and all routes
 app.use((req, res, next) => {
 	res.locals.h = helpers;
+	req.spotifyApi = spotifyApi;
 	next();
 });
 
