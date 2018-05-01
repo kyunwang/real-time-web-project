@@ -11,7 +11,7 @@ block content
 
 		section.music__detail
 			div
-				img(src=data.playlist.images[0].url, alt="")
+				img(src=data.playlist.image.url, alt="")
 			if data.playlist.tracks
 				table
 					tr
@@ -20,7 +20,7 @@ block content
 						th
 
 
-					each track in data.playlist.tracks.items
+					each track in data.playlist.tracks
 						if track.track
 							- track = track.track
 							//- pre= h.dump(track)
@@ -28,18 +28,12 @@ block content
 						//- pre= h.dump(track.track)
 						tr
 							td= track.name
-							td= h.milliToMinSec(track.duration_ms) 
-							td
-								button(id=track.id class="track__add" data-uri=track.uri) + 
+							td= h.milliToMinSec(track.duration_ms)
+							//- if loggedIn
+								td
+									button(id=track.id class="track__add" data-uri=track.uri) + 
 
 
 	script(src="/public/socket.io/socket.io.js")
 	//- is needed to make the data available in the bunlde.js
-	script.
-		var data = {
-			name: '#{data.name}',
-			slug: '#{data.slug}',
-			playlist: '!{JSON.stringify(data.playlist)}',
-			owner: #{data.owner}
-		}
 	script(src="/public/bundle.js")

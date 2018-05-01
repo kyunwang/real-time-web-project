@@ -1,4 +1,4 @@
 mixin roomList(room = {})
 	a(class="music__list--item" href=`/room/${room.slug}`)
-		img(src=room.playlist.images[0].url, alt="")
+		img(src=room.playlist.image.url, alt="")
 		p= room.name

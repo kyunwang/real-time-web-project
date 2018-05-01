@@ -7,6 +7,7 @@ const spotifyApi = require('../../config/api');
 
 const publicId = '1169335343';
 const publicPlaylistId = '7mCLaqlcQ61U9HPMbGXwUd';
+const options = { country: 'US' };
 
 exports.showRooms = async (req, res) => {
 	const rooms = await Room.find();
@@ -16,7 +17,7 @@ exports.showRooms = async (req, res) => {
 };
 
 exports.roomForm = (req, res) => {
-	res.render('newRoomForm', {});
+	res.render('roomForm', {});
 };
 
 exports.addRoom = async (req, res) => {
@@ -25,9 +26,17 @@ exports.addRoom = async (req, res) => {
 		const user = await spotifyApi.getMe();
 		// console.log(user.body, user.body.id);
 
-		const playlist = await spotifyApi.getPlaylist(user.body.id, req.body.playlist);
+		const playlist = await spotifyApi.getPlaylist(req.session.userId, req.body.playlist, options);
+
+		const data = playlist.body;
+		const modifiedPlaylist = {
+			name: data.name,
+			image: data.images[0],
+			tracks: data.tracks.items,
+		};
+
 		req.body.owner = user.body.id;
-		req.body.playlist = playlist.body;
+		req.body.playlist = modifiedPlaylist;
 	} catch (err) {
 		console.error(err);
 	}
@@ -45,5 +54,5 @@ exports.singleRoom = async (req, res, next) => {
 
 	if (!room) return next();
 
-	res.render('singleRoom', { data: room });
+	res.render('roomSingle', { data: room });
 };
