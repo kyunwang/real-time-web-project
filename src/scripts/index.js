@@ -25,14 +25,13 @@ const { $, $$, addEvent, createNode, milliToMinSec } = h;
 		addTrack: function(track) {
 			console.log('Adding track', track);
 
-			return;
 			// Get table, create new table row + items, append new table row
 			const tr = createNode('tr');
 			const trackName = createNode('td', track.name);
 			const trackTime = createNode('td', milliToMinSec(track.duration_ms));
 			const buttonCon = createNode('td');
-			const addButton = createNode('button', '+', 'track__add', track.id, `uri: ${track.uri}`);
-			buttonCon.appendChild(addButton);
+			// const addButton = createNode('button', '+', 'track__add', track.id, `uri: ${track.uri}`);
+			// buttonCon.appendChild(addButton);
 
 			tr.appendChild(trackName);
 			tr.appendChild(trackTime);
@@ -55,30 +54,6 @@ const { $, $$, addEvent, createNode, milliToMinSec } = h;
 		addTrack: function(e) {
 			const trackUri = this.dataset.uri;
 			console.log(trackUri);
-
-			// Dit omzetten
-			// 1. verwijdere exports.addToplaylists
-
-			// 2. In de socket call api call amken naar track/uri
-			// 3. update de room/playlist in de io.on/socket,on server side
-			// 4. update overal via sockets
-			// 5. verwijdere de data.stringify client side
-			// 6. voeg de nieuwe item client side toe aan de playlist
-
-			// Get the track we have selected
-
-			// Emit to the room/ add the track to the room
-			// Add the track to the spotify playlist too
-
-			// fetch(`/playlist/add/${uri}`, {
-			// 	method: 'POST',
-			// })
-			// 	.then(res => {
-			// 		console.log('Succesful added to public playlist');
-			// 	})
-			// 	.catch(err => {
-			// 		console.error(`Error trying to add to public playlist: ${err}`);
-			// 	});
 
 			socket.emit('addTrack', trackUri);
 		},

@@ -43,7 +43,6 @@ exports.authorize = async (req, res) => {
 			}
 			// return data;
 		});
-		// console.log('2312321321', userExists);
 
 		req.session.userId = theUser.body.id;
 		req.session.username = theUser.body.display_name;

@@ -44,43 +44,21 @@ function sockets(io, sessionMiddleware) {
 
 		function addTrack(trackUri) {
 			// Public room is the default for now
-			console.log('Server add track', trackUri);
-			// await spotifyApi
-			// 	.addTracksToPlaylist(publicId, publicPlaylistId, [uri])
-			// 	.then(data => {
-			// 		console.log('DONE', data);
-			// 	})
-			// 	.catch(err => {
-			// 		console.log('ERROR: ', err);
-			// 	});
-
-			// const playlist = await spotifyApi.getPlaylist(publicId, publicPlaylistId);
-
 			spotifyApi
 				.getTrack(trackUri)
 				.then(track => {
-					// console.log(track);
-
-					// Room.findOneAndUpdate
-
+					// Update the currently joined rooms playlist
 					Room.update(
 						{ name: currentRoom },
 						{ $push: { 'playlist.tracks': track.body } },
 						{ safe: true, upsert: true }
-						// function(err, room) {
-						// 	if (err) throw error;
-						// 	console.log('update user complete');
-						// }
 					).then(room => {
-						console.log('THE ROOM UPDATED', room);
+						// Send to everyone except self
+						socket.broadcast.to('Public Room').emit('addTrack', track.body);
 					});
 				})
 				.catch(err => console.error(err));
 
-			// Update the currently joined room
-
-			// Send to everyone except self
-			socket.broadcast.to('Public Room').emit('addTrack', 'hello');
 			// socket.broadcast.to('Public Room').emit('addTrack', newTrack);
 			// io.to('Public Room').emit('addTrack', track);
 		}
