@@ -7,30 +7,25 @@ const { $, $$, addEvent, createNode, milliToMinSec } = h;
 
 	const room = {
 		init: function() {
-			console.log('INIT');
-			// const self = this;
-			// if (data.type === 'musicDetail') {
-			// 	return;
-			// }
 			this.start();
 		},
 		start: function() {
 			console.log('Room start');
 
-			socket.emit('joinRoom', data.name || 'Public Room');
+			// Join the user to a room (public room) for now
+			socket.emit('joinRoom', 'Public Room');
 
+			// Response to room joined (unneccesary?)
 			socket.on('joinRoom', function(room) {
 				console.log('ROOM joined', room);
-			});
-
-			socket.on('message', data => {
-				console.log('Message to room', data);
 			});
 
 			socket.on('addTrack', this.addTrack);
 		},
 		addTrack: function(track) {
 			console.log('Adding track', track);
+
+			return;
 			// Get table, create new table row + items, append new table row
 			const tr = createNode('tr');
 			const trackName = createNode('td', track.name);
@@ -58,33 +53,38 @@ const { $, $$, addEvent, createNode, milliToMinSec } = h;
 			addEvent('click', this.addButtons, playlist.addTrack);
 		},
 		addTrack: function(e) {
-			// console.log(this.dataset.uri);
-			const tracks = JSON.parse(data.tracks);
-			const uri = this.dataset.uri;
+			const trackUri = this.dataset.uri;
+			console.log(trackUri);
+
+			// Dit omzetten
+			// 1. verwijdere exports.addToplaylists
+
+			// 2. In de socket call api call amken naar track/uri
+			// 3. update de room/playlist in de io.on/socket,on server side
+			// 4. update overal via sockets
+			// 5. verwijdere de data.stringify client side
+			// 6. voeg de nieuwe item client side toe aan de playlist
 
 			// Get the track we have selected
-			const track = tracks.items.filter(track => track.uri === uri)[0];
 
 			// Emit to the room/ add the track to the room
 			// Add the track to the spotify playlist too
-			fetch(`/playlist/add/${uri}`, {
-				method: 'POST',
-			})
-				.then(res => {
-					console.log('Succesful added to public playlist');
-				})
-				.catch(err => {
-					console.error(`Error trying to add to public playlist: ${err}`);
-				});
 
-			socket.emit('addTrack', track);
+			// fetch(`/playlist/add/${uri}`, {
+			// 	method: 'POST',
+			// })
+			// 	.then(res => {
+			// 		console.log('Succesful added to public playlist');
+			// 	})
+			// 	.catch(err => {
+			// 		console.error(`Error trying to add to public playlist: ${err}`);
+			// 	});
+
+			socket.emit('addTrack', trackUri);
 		},
 	};
 
-	if (data.type === 'musicDetail') {
-		playlist.init();
-	} else {
-	}
+	playlist.init();
 
 	room.init();
 })();

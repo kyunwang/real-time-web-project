@@ -1,22 +1,18 @@
 // const mongoose = require('mongoose');
 
 const spotifyApi = require('../../config/api');
-const { authorizeURL } = spotifyApi;
-
-// const Playlist = mongoose.model('Playlist');
-const mongoose = require('mongoose');
-
-const Room = mongoose.model('Room');
 
 const publicId = '1169335343';
 const publicPlaylistId = '7mCLaqlcQ61U9HPMbGXwUd';
+
+const options = { country: 'US' };
 
 exports.featuredPlaylist = async (req, res) => {
 	spotifyApi
 		// .getTrack('3Qm86XLflmIXVm1wcwkgDK')
 		// .getPlaylistsForCategory()
 
-		.getFeaturedPlaylists()
+		.getFeaturedPlaylists(options)
 		// .getNewReleases()
 		// .getCategories() // Discover
 		.then(data => {
@@ -36,7 +32,7 @@ exports.featuredPlaylist = async (req, res) => {
 
 exports.newReleased = (req, res) => {
 	spotifyApi
-		.getNewReleases()
+		.getNewReleases(options)
 		// .getCategories() // Discover
 		.then(data => {
 			res.render('musicOverview', {
@@ -57,11 +53,12 @@ exports.albumDetail = (req, res) => {
 	const { id } = req.params;
 
 	spotifyApi
-		.getAlbum(id)
+		.getAlbum(id, options)
 		.then(data => {
 			res.render('musicDetail', {
 				message: 'Hello Server!',
 				data: data.body || 'nope',
+				loggedIn: req.session.userId,
 			});
 		})
 		.catch(err => {
@@ -82,6 +79,7 @@ exports.publicPlaylist = (req, res) => {
 			res.render('musicDetail', {
 				message: 'Hello Server!',
 				data: data.body || 'nope',
+				loggedIn: req.session.userId,
 			});
 		})
 		.catch(err => {
@@ -93,31 +91,32 @@ exports.publicPlaylist = (req, res) => {
 		});
 };
 
-exports.addToPlaylist = async (req, res) => {
-	const { uri } = req.params;
+//
+// exports.addToPlaylist = async (req, res) => {
+// 	const { uri } = req.params;
 
-	await spotifyApi
-		.addTracksToPlaylist(publicId, publicPlaylistId, [uri])
-		.then(data => {
-			console.log('DONE', data);
-		})
-		.catch(err => {
-			console.log('ERROR: ', err);
-		});
+// 	await spotifyApi
+// 		.addTracksToPlaylist(publicId, publicPlaylistId, [uri])
+// 		.then(data => {
+// 			console.log('DONE', data);
+// 		})
+// 		.catch(err => {
+// 			console.log('ERROR: ', err);
+// 		});
 
-	const playlist = await spotifyApi.getPlaylist(publicId, publicPlaylistId);
-	// console.log(playlist);
+// 	const playlist = await spotifyApi.getPlaylist(publicId, publicPlaylistId);
+// 	// console.log(playlist);
 
-	Room.update(
-		{
-			playlist: playlist.body,
-		},
-		function(err, user) {
-			if (err) throw error;
-			console.log('update user complete');
-		}
-	);
-};
+// 	Room.update(
+// 		{
+// 			playlist: playlist.body,
+// 		},
+// 		function(err, user) {
+// 			if (err) throw error;
+// 			console.log('update user complete');
+// 		}
+// 	);
+// };
 
 exports.play = (req, res) => {
 	// const { id } = req.params;

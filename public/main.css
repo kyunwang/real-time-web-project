@@ -168,7 +168,8 @@ li {
         line-height: 1.2;
         text-shadow: -5px 2px 15px var(--black);
         transform: translate(-5%, 55%);
-        z-index: 100; }
+        z-index: 100;
+        pointer-events: none; }
     .content__container {
       grid-template-rows: 1fr 1fr;
       grid-template-columns: 5em;
