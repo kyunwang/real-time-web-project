@@ -54,7 +54,8 @@ This app makes use of the [Spotify API][api]
 The limitations of the API will be documented here
 
 - The API requires OAUTH 2.0 for every request you make.
-- You require a Premium account to be able to use the Player endpoints
+- The user requires a spotify account to utilise the application.
+- You(Developer) require a Premium account to be able to use the Player endpoints
 
 
 # Data
@@ -74,10 +75,12 @@ This is overal view of the data cycle in the application.
 
 Here are the tools used
 
-<!-- The following tools are used:
+The following tools are used:
+- Server: Express (Node.js)
 - Template engine: Pug
-- Bundler: Webpack or Browserify?
-- Babel -->
+- Bundler: Browserify?
+- Code formatter: Prettier
+- Socket.io
 
 <!-- Where do the 0️⃣s and 1️⃣s live in your project? What db system are you using?-->
 
@@ -88,6 +91,7 @@ Here are the tools used
 - [ ] Create private rooms
 - [ ] Inviting people to private rooms
 - [ ] Have a dropdown(or something similar) for selecting playlists when creating a room
+- [ ] Play tracks in a room
 
 
 <!-- How about a license here? 📜 (or is it a licence?) 🤷 -->
