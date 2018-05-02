@@ -16,8 +16,13 @@ exports.showRooms = async (req, res) => {
 	res.render('roomSelect', { rooms });
 };
 
-exports.roomForm = (req, res) => {
-	res.render('roomForm', {});
+exports.roomForm = async (req, res) => {
+	// Get user playlists
+	const userPlaylists = await spotifyApi.getUserPlaylists(req.session.userId, options);
+
+	const playlists = userPlaylists.body.items;
+
+	res.render('roomForm', { playlists });
 };
 
 exports.addRoom = async (req, res) => {

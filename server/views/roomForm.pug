@@ -15,9 +15,10 @@ block content
 			label(for="name") Room name
 			input(id="name" type="text" name="name" value="Public Room")
 			
-			//- Should become something like a dropdown with the available playlist from user
 			label(for="playlist") Use playlist
-			input(id="playlist" type="text" name="playlist" value="7mCLaqlcQ61U9HPMbGXwUd")
+			select(name="playlist")
+				each list in playlists
+					option(value=list.id)= list.name
 
 			p Room type
 			label(for="type-public") Public
