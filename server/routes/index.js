@@ -33,7 +33,7 @@ router.get('/auth', accountController.authorize);
 function isLoggedIn(req, res, next) {
 	console.log('Check logged in');
 
-	if (req.session.userId) {
+	if (req.session.authenticated) {
 		return next();
 	}
 

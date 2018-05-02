@@ -60,6 +60,7 @@ app.use(async (req, res, next) => {
 			.then(data => {
 				console.log('DONE CLIENT AUTH');
 				// req.accessToken = data.body['access_token'];
+				req.session.authenticated = true;
 				req.session.userId = null;
 				req.session.name = 'Anonymous';
 				next();

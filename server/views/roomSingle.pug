@@ -23,15 +23,13 @@ block content
 					each track in data.playlist.tracks
 						if track.track
 							- track = track.track
-							//- pre= h.dump(track)
 
-						//- pre= h.dump(track.track)
-						tr
+						tr(id=track.id)
 							td= track.name
 							td= h.milliToMinSec(track.duration_ms)
-							//- if loggedIn
+							if isOwner
 								td
-									button(id=track.id class="track__add" data-uri=track.uri) + 
+									button(class="track__remove" data-track-id=track.id) -
 
 
 	script(src="/public/offline.js")

@@ -44,6 +44,7 @@ exports.authorize = async (req, res) => {
 			// return data;
 		});
 
+		req.session.authenticated = true;
 		req.session.userId = theUser.body.id;
 		req.session.username = theUser.body.display_name;
 

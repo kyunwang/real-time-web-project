@@ -116,7 +116,9 @@ const { $, $$, addEvent, createNode, milliToMinSec } = h;
 
 			playlist.appendChild(tr);
 		},
-		removeTrack: function(track) {},
+		removeTrack: function(track) {
+			console.log('Removing track');
+		},
 	};
 
 	const playlist = {
@@ -124,16 +126,24 @@ const { $, $$, addEvent, createNode, milliToMinSec } = h;
 		removeButtons: [],
 		init: function() {
 			this.addButtons = $$('.track__add');
-			// this.addButtons = $$('.track__remove');
+			this.removeButtons = $$('.track__remove');
 
 			addEvent('click', this.addButtons, playlist.addTrack);
-			// addEvent('click', this.removeButtons, playlist.removeTrack);
+			addEvent('click', this.removeButtons, playlist.removeTrack);
 		},
 		addTrack: function(e) {
-			const trackUri = this.dataset.uri;
-			socket.emit('addTrack', trackUri);
+			const trackId = this.dataset.trackId;
+			console.log(trackId, this.dataset);
+			socket.emit('addTrack', trackId);
 		},
-		removeTrack: function(e) {},
+		removeTrack: function(e) {
+			const trackId = this.dataset.trackId;
+			console.log(trackId, this.dataset);
+
+			// const trackId = this.dataset.trackId;
+			// const elId = e.target.getAttribute('id');
+			socket.emit('removeTrack', trackId);
+		},
 	};
 
 	playlist.init();

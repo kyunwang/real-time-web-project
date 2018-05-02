@@ -29,6 +29,7 @@ function sockets(io, sessionMiddleware) {
 		});
 
 		socket.on('addTrack', addTrack);
+		socket.on('removeTrack', removeTrack);
 
 		/*==========================
 		=== Socket (helper)function
@@ -42,10 +43,12 @@ function sockets(io, sessionMiddleware) {
 			// if ()
 		}
 
-		function addTrack(trackUri) {
+		function addTrack(trackId) {
 			// Public room is the default for now
+			console.log('Adding track', trackId);
+
 			spotifyApi
-				.getTrack(trackUri)
+				.getTrack(trackId)
 				.then(track => {
 					// Update the currently joined rooms playlist
 					Room.update(
@@ -61,6 +64,23 @@ function sockets(io, sessionMiddleware) {
 
 			// socket.broadcast.to('Public Room').emit('addTrack', newTrack);
 			// io.to('Public Room').emit('addTrack', track);
+		}
+
+		function removeTrack(trackId) {
+			console.log('removing track', trackId);
+
+			Room.update(
+				{ name: currentRoom },
+				{ $pull: { 'playlist.tracks': { id: trackId } } },
+				{ safe: true, upsert: true }
+			)
+				.then(room => {
+					console.log('success');
+
+					// Send to everyone except self
+					socket.broadcast.to('Public Room').emit('removeTrack', trackId);
+				})
+				.catch(err => console.error(err));
 		}
 	});
 }

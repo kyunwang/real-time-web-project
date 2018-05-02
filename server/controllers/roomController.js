@@ -57,5 +57,6 @@ exports.singleRoom = async (req, res, next) => {
 	res.render('roomSingle', {
 		data: room,
 		offlineMode: true,
+		isOwner: room.owner == req.session.userId,
 	});
 };
