@@ -59,6 +59,7 @@ exports.albumDetail = (req, res) => {
 				message: 'Hello Server!',
 				data: data.body || 'nope',
 				loggedIn: req.session.userId,
+				offlineMode: true,
 			});
 		})
 		.catch(err => {

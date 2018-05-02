@@ -54,5 +54,8 @@ exports.singleRoom = async (req, res, next) => {
 
 	if (!room) return next();
 
-	res.render('roomSingle', { data: room });
+	res.render('roomSingle', {
+		data: room,
+		offlineMode: true,
+	});
 };

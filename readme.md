@@ -19,6 +19,7 @@ The process document **[HERE](process.md)**
 - [Data](#data)
 	- [Data retention](#data-retention)
 	- [Data life cycle](#data-life-cycle)
+- [Offline](#offline)
 - [Tools](#tools)
 - [To do](#to-do)
 
@@ -69,6 +70,16 @@ This is overal view of the data cycle in the application.
 
 ![](doc/images/cycle.jpg)
 
+# Offline
+After looking at a few checkers for internet connection.
+
+- [Offline.js](http://github.hubspot.com/offline/docs/welcome/)
+- [Events](https://robertnyman.com/html5/offline/online-offline-events.html)
+- [Navigator 1](http://qnimate.com/detecting-if-browser-is-online-or-offline-using-javascript/)
+- [Navigator 2](https://davidwalsh.name/detecting-online)
+- Using socket events to check
+
+I have decided to use `Offline.js` as it makes the integration simpler, easier and quicker.
 
 
 # Tools

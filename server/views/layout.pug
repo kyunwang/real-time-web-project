@@ -5,6 +5,10 @@ html(lang="en")
 		meta(name="viewport", content="width=device-width, initial-scale=1.0")
 		title Title
 		link(rel="stylesheet", href="/public/main.css")
+		if offlineMode
+			link(rel="stylesheet", href="/public/offline-theme-dark.css")
+			link(rel="stylesheet", href="/public/offline-language-english.css")
+
 
 	body
 		block content

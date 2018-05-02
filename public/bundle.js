@@ -79,6 +79,15 @@ const { $, $$, addEvent, createNode, milliToMinSec } = h;
 			});
 
 			socket.on('addTrack', this.addTrack);
+
+			// Chech wheter the server is online or not through the sockets
+			socket.on('connect_error', function() {
+				console.log('Is The Server Online? ' + socket.connected);
+			});
+
+			socket.on('connect', function() {
+				console.log('Is The Server Online? ' + socket.connected);
+			});
 		},
 		addTrack: function(track) {
 			console.log('Adding track', track);
@@ -96,7 +105,6 @@ const { $, $$, addEvent, createNode, milliToMinSec } = h;
 			tr.appendChild(buttonCon);
 
 			const playlist = $('table');
-			// console.log(playlist);
 
 			playlist.appendChild(tr);
 		},
@@ -111,8 +119,6 @@ const { $, $$, addEvent, createNode, milliToMinSec } = h;
 		},
 		addTrack: function(e) {
 			const trackUri = this.dataset.uri;
-			console.log(trackUri);
-
 			socket.emit('addTrack', trackUri);
 		},
 	};
