@@ -32,11 +32,12 @@ The following features are/will be added to application:
 **Added**
 - Add tracks to a public playlist
 - See the playlist updating live in public rooms
+- Edit playlists (As the room owner only) e.g. deleting tracks
+- Ability to add rooms with your spotify playlist as base (You must be logged in)
 
 **To be added**
-- Edit playlists (As the room owner only) e.g. deleting tracks
-- Listening to music in public rooms
-- Creating Public/Private rooms
+- Listening to music in rooms
+- Creating Private rooms
 
 
 # API
@@ -99,22 +100,21 @@ The following tools are used:
 - Code formatter: Prettier
 - Socket.io
 
-<!-- Where do the 0️⃣s and 1️⃣s live in your project? What db system are you using?-->
-
 <!-- Maybe a checklist of done stuff and stuff still on your wishlist? ✅ -->
 # To do
 - [x] Update the playlist in the room after adding a track
 - [ ] Create private rooms
 - [ ] Inviting people to private rooms
-- [ ] Have a dropdown(or something similar) for selecting playlists when creating a room
+- [x] Have a dropdown(or something similar) for selecting playlists when creating a room
 - [ ] Play tracks in a room
 - [ ] Fix the view when a album name is too long (in detail page)
 - [ ] Implemment the refreshtokens from the api
+- [ ] Able to select where you want to add a track to (which room)
+
 
 
 # License
 MIT © Kang Yun Wang
-<!-- How about a license here? 📜 (or is it a licence?) 🤷 -->
 
 [api]: https://developer.spotify.com/web-api/
 [mongodb]: https://www.mongodb.com/
