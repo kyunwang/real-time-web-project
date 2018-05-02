@@ -1,0 +1,6 @@
+mixin topNav()
+	nav.nav--top
+		ul
+			each link in h.topMenu
+				li
+					a(class=(currentPath === link.slug && 'current') href=link.slug)= link.title

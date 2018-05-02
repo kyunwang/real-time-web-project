@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/', musicController.newReleased);
 
 router.get('/featured', musicController.featuredPlaylist);
-router.get('/releases', musicController.newReleased);
+// router.get('/releases', musicController.newReleased);
 
 router.get('/play', musicController.play);
 // router.get('/playlist', musicController.publicPlaylist);

@@ -53,3 +53,9 @@ exports.milliToMinSec = function(millis) {
 
 	return `${d.getUTCMinutes()}:${seconds}`;
 };
+
+exports.topMenu = [
+	{ slug: '/', title: 'New releases' },
+	{ slug: '/featured', title: 'Featured' },
+	// { slug: '/map', title: 'Map' },
+];

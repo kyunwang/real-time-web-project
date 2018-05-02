@@ -17,8 +17,8 @@ exports.featuredPlaylist = async (req, res) => {
 		// .getCategories() // Discover
 		.then(data => {
 			res.render('musicOverview', {
-				message: 'Hello Server!',
-				data: data.body.playlists || 'nope',
+				data: data.body.playlists || 'No data could be fetched',
+				currentPath: req.route.path,
 			});
 		})
 		.catch(err => {
@@ -33,11 +33,10 @@ exports.featuredPlaylist = async (req, res) => {
 exports.newReleased = (req, res) => {
 	spotifyApi
 		.getNewReleases(options)
-		// .getCategories() // Discover
 		.then(data => {
 			res.render('musicOverview', {
-				message: 'Hello Server!',
-				data: data.body.albums || 'nope',
+				data: data.body.albums || 'No data could be fetched',
+				currentPath: req.route.path,
 			});
 		})
 		.catch(err => {
@@ -56,8 +55,7 @@ exports.albumDetail = (req, res) => {
 		.getAlbum(id, options)
 		.then(data => {
 			res.render('musicDetail', {
-				message: 'Hello Server!',
-				data: data.body || 'nope',
+				data: data.body || 'No data could be fetched',
 				loggedIn: req.session.userId,
 				offlineMode: true,
 			});
@@ -78,8 +76,7 @@ exports.publicPlaylist = (req, res) => {
 		// .getPlaylistTracks('1169335343', '7mCLaqlcQ61U9HPMbGXwUd')
 		.then(data => {
 			res.render('musicDetail', {
-				message: 'Hello Server!',
-				data: data.body || 'nope',
+				data: data.body || 'No data could be fetched',
 				loggedIn: req.session.userId,
 			});
 		})
@@ -135,8 +132,7 @@ exports.play = (req, res) => {
 	// 	.getAlbum(id)
 	// 	.then(data => {
 	// 		res.render('musicDetail', {
-	// 			message: 'Hello Server!',
-	// 			data: data.body || 'nope',
+	// 			data: data.body || 'No data could be fetched',
 	// 		});
 	// 	})
 	// 	.catch(err => {
