@@ -75,10 +75,8 @@ function sockets(io, sessionMiddleware) {
 				{ safe: true, upsert: true }
 			)
 				.then(room => {
-					console.log('success');
-
-					// Send to everyone except self
-					socket.broadcast.to('Public Room').emit('removeTrack', trackId);
+					// Send to everyone in room including sender
+					io.sockets.in('Public Room').emit('removeTrack', trackId);
 				})
 				.catch(err => console.error(err));
 		}

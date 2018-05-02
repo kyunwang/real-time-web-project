@@ -116,8 +116,11 @@ const { $, $$, addEvent, createNode, milliToMinSec } = h;
 
 			playlist.appendChild(tr);
 		},
-		removeTrack: function(track) {
-			console.log('Removing track');
+		removeTrack: function(trackId) {
+			// This didn't work
+			// const track = $(`#${trackId}`);
+			const track = document.getElementById(trackId);
+			track.remove();
 		},
 	};
 
@@ -133,15 +136,10 @@ const { $, $$, addEvent, createNode, milliToMinSec } = h;
 		},
 		addTrack: function(e) {
 			const trackId = this.dataset.trackId;
-			console.log(trackId, this.dataset);
 			socket.emit('addTrack', trackId);
 		},
 		removeTrack: function(e) {
 			const trackId = this.dataset.trackId;
-			console.log(trackId, this.dataset);
-
-			// const trackId = this.dataset.trackId;
-			// const elId = e.target.getAttribute('id');
 			socket.emit('removeTrack', trackId);
 		},
 	};

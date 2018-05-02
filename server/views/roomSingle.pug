@@ -12,13 +12,14 @@ block content
 		section.music__detail
 			div
 				img(src=data.playlist.image.url, alt="")
-			if data.playlist.tracks
+			if data.playlist.tracks.length
 				table
 					tr
 						th Title
 						th Duration
 						th
 
+				pre= data.playlist.tracks.length
 
 					each track in data.playlist.tracks
 						if track.track
@@ -30,6 +31,8 @@ block content
 							if isOwner
 								td
 									button(class="track__remove" data-track-id=track.id) -
+			else
+				p There are no tracks added to this room yet. Why not add one yourself?
 
 
 	script(src="/public/offline.js")
