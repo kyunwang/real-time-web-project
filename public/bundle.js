@@ -55,6 +55,12 @@ exports.milliToMinSec = function(millis) {
 	return `${d.getUTCMinutes()}:${seconds}`;
 };
 
+exports.topMenu = [
+	{ slug: '/', title: 'New releases' },
+	{ slug: '/featured', title: 'Featured' },
+	// { slug: '/map', title: 'Map' },
+];
+
 },{}],2:[function(require,module,exports){
 const h = require('./helpers');
 const { $, $$, addEvent, createNode, milliToMinSec } = h;
@@ -80,14 +86,15 @@ const { $, $$, addEvent, createNode, milliToMinSec } = h;
 
 			socket.on('addTrack', this.addTrack);
 
-			// Chech wheter the server is online or not through the sockets
-			socket.on('connect_error', function() {
-				console.log('Is The Server Online? ' + socket.connected);
-			});
+			// Check wheter the server is online or not through the sockets
+			// Is unneeded because of offline.js but will keep it for future use
+			// socket.on('connect_error', function() {
+			// 	console.log('Is The Server Online? ' + socket.connected);
+			// });
 
-			socket.on('connect', function() {
-				console.log('Is The Server Online? ' + socket.connected);
-			});
+			// socket.on('connect', function() {
+			// 	console.log('Is The Server Online? ' + socket.connected);
+			// });
 		},
 		addTrack: function(track) {
 			console.log('Adding track', track);

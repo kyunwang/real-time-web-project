@@ -23,14 +23,13 @@ const roomSchema = new mongoose.Schema({
 		type: Object,
 		required: 'A Playlist is required for a room',
 	},
+	members: {
+		type: Array,
+	},
 });
 
 roomSchema.pre('save', async function(next) {
-	// this.owner = user.id;
-	// this.playlist = playlist;
-	// this.public = Boolean(this.public);
 	this.slug = slug(this.name);
-	// console.log('CHECK', this);
 
 	next();
 });

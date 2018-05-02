@@ -22,14 +22,15 @@ const { $, $$, addEvent, createNode, milliToMinSec } = h;
 
 			socket.on('addTrack', this.addTrack);
 
-			// Chech wheter the server is online or not through the sockets
-			socket.on('connect_error', function() {
-				console.log('Is The Server Online? ' + socket.connected);
-			});
+			// Check wheter the server is online or not through the sockets
+			// Is unneeded because of offline.js but will keep it for future use
+			// socket.on('connect_error', function() {
+			// 	console.log('Is The Server Online? ' + socket.connected);
+			// });
 
-			socket.on('connect', function() {
-				console.log('Is The Server Online? ' + socket.connected);
-			});
+			// socket.on('connect', function() {
+			// 	console.log('Is The Server Online? ' + socket.connected);
+			// });
 		},
 		addTrack: function(track) {
 			console.log('Adding track', track);

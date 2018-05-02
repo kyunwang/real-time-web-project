@@ -16,6 +16,7 @@ const scopes = [
 	'playlist-modify-public',
 	'playlist-modify-private',
 ];
+
 const state = process.env.API_STATE;
 
 const spotifyApi = new SpotifyWebApi({
@@ -42,7 +43,4 @@ spotifyApi.clientAuth = function() {
 	);
 };
 
-// export { authorizeURL, clientAuth };
-
-// exports.clientAuth = clientAuth;
 module.exports = spotifyApi;
