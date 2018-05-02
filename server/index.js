@@ -75,6 +75,10 @@ app.use(async (req, res, next) => {
 });
 
 app.use('/', routes);
+app.get('*', function(req, res) {
+	// A quick solution for now. need to attacha  message to it too e.g. sorry we can't find what you are looking for
+	res.redirect('/');
+});
 
 server.listen(process.env.PORT || '8888', function() {
 	console.log('Listening to port: ', process.env.PORT);

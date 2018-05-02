@@ -47,7 +47,7 @@ exports.authorize = async (req, res) => {
 		req.session.userId = theUser.body.id;
 		req.session.username = theUser.body.display_name;
 
-		res.redirect('/releases');
+		res.redirect('/');
 	} catch (err) {}
 
 	// .then(

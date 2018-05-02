@@ -21,6 +21,7 @@ const { $, $$, addEvent, createNode, milliToMinSec } = h;
 			});
 
 			socket.on('addTrack', this.addTrack);
+			socket.on('removeTrack', this.removeTrack);
 
 			// Check wheter the server is online or not through the sockets
 			// Is unneeded because of offline.js but will keep it for future use
@@ -51,19 +52,24 @@ const { $, $$, addEvent, createNode, milliToMinSec } = h;
 
 			playlist.appendChild(tr);
 		},
+		removeTrack: function(track) {},
 	};
 
 	const playlist = {
 		addButtons: [],
+		removeButtons: [],
 		init: function() {
 			this.addButtons = $$('.track__add');
+			// this.addButtons = $$('.track__remove');
 
 			addEvent('click', this.addButtons, playlist.addTrack);
+			// addEvent('click', this.removeButtons, playlist.removeTrack);
 		},
 		addTrack: function(e) {
 			const trackUri = this.dataset.uri;
 			socket.emit('addTrack', trackUri);
 		},
+		removeTrack: function(e) {},
 	};
 
 	playlist.init();
