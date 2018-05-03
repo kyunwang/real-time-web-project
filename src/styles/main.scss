@@ -31,7 +31,6 @@ html {
 
 body {
 	margin: 0;
-	// overflow: hidden;
 	scroll-behavior: smooth;
 }
 
@@ -57,6 +56,10 @@ a,
 :active {
 	text-decoration: none;
 	color: var(--white);
+}
+
+.hide-flow {
+	overflow: hidden;
 }
 
 /*==========================
@@ -163,7 +166,7 @@ li {
 
 
 /*==========================
-=== 
+=== Overview stylings
 ===========================*/
 
 .music__overview {
@@ -220,8 +223,6 @@ li {
 
 @supports (display: grid) {
 	body {
-		// background: red;
-
 		display: grid; //   grid-template-columns: 1fr 1fr;
 	}
 
@@ -237,7 +238,7 @@ li {
 			// background: yellow;
 
 			grid-template-columns: 5rem auto;
-			grid-template-rows: 10rem 1fr 10rem;
+			grid-template-rows: 10rem 1fr 6rem;
 			grid-gap: 1rem;
 			grid-template-areas: 
 				"header"
@@ -248,7 +249,7 @@ li {
 
 		main {
 			grid-area: music-list;
-			width: 100vw;
+			width: 98vw;
 			::-webkit-scrollbar { 
 				display: none; 
 			}
@@ -305,6 +306,9 @@ li {
 			li:first-of-type {
 				grid-row: span 2;
 				grid-column: span 2;
+				p {
+					font-size: 2em;
+				}
 			}
 		}
 
@@ -319,6 +323,21 @@ li {
 			width: calc(100% - 12rem);
 			margin: 0 6rem;
 
+		}
+
+
+		.music__list--item {
+			p {
+				// transition: font-size var(--def-transition);
+				transition: transform var(--def-transition);
+			}
+			&:hover {
+				p {
+					// font-size: 150%;
+					// transform: scale(1.3) translate(-1.2em, -1em);
+					transform: translateY(-.7em);
+				}
+			}
 		}
 
 	}
