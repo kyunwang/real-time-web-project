@@ -6,15 +6,16 @@ require('dotenv').config({ path: 'vars.env' });
 const scopes = [
 	'user-read-private',
 	'user-read-email',
-	'user-modify-playback-state',
 	'user-read-currently-playing',
 	'user-read-playback-state',
-	'user-read-currently-playing',
-	'user-read-recently-played',
+	'user-read-birthdate',
+	'user-modify-playback-state',
 	'playlist-read-private',
 	'playlist-read-collaborative',
 	'playlist-modify-public',
 	'playlist-modify-private',
+	'streaming',
+	'user-top-read',
 ];
 
 const state = process.env.API_STATE;

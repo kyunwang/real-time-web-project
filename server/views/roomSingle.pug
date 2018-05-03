@@ -17,22 +17,28 @@ block content
 					tr
 						th Title
 						th Duration
-						th
+						th 
+						if (isOwner)
+							th
 
-					each track in data.playlist.tracks
+					each track, index in data.playlist.tracks
 						if track.track
 							- track = track.track
 
 						tr(id=track.id)
 							td= track.name
 							td= h.milliToMinSec(track.duration_ms)
+							td
+								button(class="track__playBtn" data-track-uri=`spotify:track:${track.id}` data-track-index=index) play
 							if isOwner
 								td
-									button(class="track__remove" data-track-id=track.id) -
+									button(class="track__remove" data-track-id=track.id data-track-index=index) -
 			else
 				p There are no tracks added to this room yet. Why not add one yourself?
 
-
+	script(src="https://sdk.scdn.co/spotify-player.js")
 	script(src="/public/offline.js")
 	script(src="/public/socket.io/socket.io.js")
+	script.
+		var accessToken = JSON.stringify("#{token}");
 	script(src="/public/bundle.js")

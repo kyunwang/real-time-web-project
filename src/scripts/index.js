@@ -1,86 +1,79 @@
-const h = require('./helpers');
-const { $, $$, addEvent, createNode, milliToMinSec } = h;
-// const createNode = h.createNode;
+const { room, playlist } = require('./trackModule');
 
-(function() {
-	const socket = io();
+if (typeof accessToken != 'undefined') {
+	console.log('Player Init');
 
-	const room = {
-		init: function() {
-			this.start();
-		},
-		start: function() {
-			console.log('Room start');
+	// Documentation: https://beta.developer.spotify.com/documentation/web-playback-sdk/quick-start/
 
-			// Join the user to a room (public room) for now
-			socket.emit('joinRoom', 'Public Room');
+	window.onSpotifyWebPlaybackSDKReady = () => {
+		const token = JSON.parse(accessToken);
 
-			// Response to room joined (unneccesary?)
-			socket.on('joinRoom', function(room) {
-				console.log('ROOM joined', room);
+		const player = new Spotify.Player({
+			name: 'Spotify Playlist Collab',
+			getOAuthToken: cb => {
+				cb(token);
+			},
+		});
+
+		// Error handling
+		player.addListener('initialization_error', ({ message }) => {
+			console.error(message);
+		});
+		player.addListener('authentication_error', ({ message }) => {
+			console.error(message);
+		});
+		player.addListener('account_error', ({ message }) => {
+			console.error(message);
+		});
+		player.addListener('playback_error', ({ message }) => {
+			console.error(message);
+		});
+
+		// Playback status updates
+		player.addListener('player_state_changed', state => {
+			console.log(state);
+		});
+
+		// Ready
+		player.addListener('ready', ({ device_id }) => {
+			console.log('Ready with Device ID', device_id);
+		});
+
+		// Not Ready
+		player.addListener('not_ready', ({ device_id }) => {
+			console.log('Device ID has gone offline', device_id);
+		});
+
+		// Connect to the player!
+		player.connect();
+
+		// Play controls
+		const play = ({
+			spotify_uri,
+			playerInstance: {
+				_options: { getOAuthToken, id },
+			},
+		}) => {
+			getOAuthToken(access_token => {
+				fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
+					method: 'PUT',
+					body: JSON.stringify({ uris: [spotify_uri] }),
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${access_token}`,
+					},
+				});
 			});
+		};
 
-			socket.on('addTrack', this.addTrack);
-			socket.on('removeTrack', this.removeTrack);
-
-			// Check wheter the server is online or not through the sockets
-			// Is unneeded because of offline.js but will keep it for future use
-			// socket.on('connect_error', function() {
-			// 	console.log('Is The Server Online? ' + socket.connected);
-			// });
-
-			// socket.on('connect', function() {
-			// 	console.log('Is The Server Online? ' + socket.connected);
-			// });
-		},
-		addTrack: function(track) {
-			console.log('Adding track', track);
-
-			// Get table, create new table row + items, append new table row
-			const tr = createNode('tr');
-			const trackName = createNode('td', track.name);
-			const trackTime = createNode('td', milliToMinSec(track.duration_ms));
-			const buttonCon = createNode('td');
-			// const addButton = createNode('button', '+', 'track__add', track.id, `uri: ${track.uri}`);
-			// buttonCon.appendChild(addButton);
-
-			tr.appendChild(trackName);
-			tr.appendChild(trackTime);
-			tr.appendChild(buttonCon);
-
-			const playlist = $('table');
-
-			playlist.appendChild(tr);
-		},
-		removeTrack: function(trackId) {
-			// This didn't work
-			// const track = $(`#${trackId}`);
-			const track = document.getElementById(trackId);
-			track.remove();
-		},
+		room.player = player;
+		room.play = play;
+		playlist.init();
+		room.init();
 	};
-
-	const playlist = {
-		addButtons: [],
-		removeButtons: [],
-		init: function() {
-			this.addButtons = $$('.track__add');
-			this.removeButtons = $$('.track__remove');
-
-			addEvent('click', this.addButtons, playlist.addTrack);
-			addEvent('click', this.removeButtons, playlist.removeTrack);
-		},
-		addTrack: function(e) {
-			const trackId = this.dataset.trackId;
-			socket.emit('addTrack', trackId);
-		},
-		removeTrack: function(e) {
-			const trackId = this.dataset.trackId;
-			socket.emit('removeTrack', trackId);
-		},
-	};
+} else {
+	console.log('Normal Init');
 
 	playlist.init();
-
 	room.init();
-})();
+}

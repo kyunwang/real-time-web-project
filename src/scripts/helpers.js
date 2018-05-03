@@ -12,7 +12,7 @@ exports.addEvent = function(event, elements, callback) {
 	});
 };
 
-exports.createNode = function(element = 'li', text = '', className, idName, dataAttr) {
+exports.createNode = function(element = 'li', text = '', className, idName, dataName, dataAttr) {
 	const node = document.createElement(element);
 
 	if (text) {
@@ -28,8 +28,9 @@ exports.createNode = function(element = 'li', text = '', className, idName, data
 		node.setAttribute('id', idName);
 	}
 
-	if (dataAttr) {
+	if (dataName && dataAttr) {
 		node.setAttribute('data', dataAttr);
+		node.dataset[dataName] = dataAttr;
 	}
 
 	return node;
@@ -54,8 +55,12 @@ exports.milliToMinSec = function(millis) {
 	return `${d.getUTCMinutes()}:${seconds}`;
 };
 
+exports.icon = name => fs.readFileSync(`./public/images/icons/${name}.svg`);
+
 exports.topMenu = [
 	{ slug: '/', title: 'New releases' },
 	{ slug: '/featured', title: 'Featured' },
 	// { slug: '/map', title: 'Map' },
 ];
+
+exports.sideMenu = [{}];

@@ -31,6 +31,9 @@ function sockets(io, sessionMiddleware) {
 		socket.on('addTrack', addTrack);
 		socket.on('removeTrack', removeTrack);
 
+		// Play a track selected from the playlist track
+		socket.on('playListTrack', playListTrack);
+
 		/*==========================
 		=== Socket (helper)function
 		===========================*/
@@ -79,6 +82,12 @@ function sockets(io, sessionMiddleware) {
 					io.sockets.in('Public Room').emit('removeTrack', trackId);
 				})
 				.catch(err => console.error(err));
+		}
+
+		function playListTrack(trackUri) {
+			console.log(trackUri);
+
+			io.sockets.in('Public Room').emit('playListTrack', trackUri);
 		}
 	});
 }

@@ -56,10 +56,14 @@ exports.addRoom = async (req, res) => {
 
 exports.singleRoom = async (req, res, next) => {
 	const room = await Room.findOne({ slug: req.params.slug });
+	const token = await spotifyApi.getAccessToken();
 
-	if (!room) return next();
+	// const [room, token] = await Promise.all([roomPromise, tokenPromise]);
+
+	if (!room || !token) return next();
 
 	res.render('roomSingle', {
+		token: token,
 		data: room,
 		offlineMode: true,
 		isOwner: room.owner == req.session.userId,
