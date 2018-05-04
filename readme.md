@@ -16,7 +16,7 @@ The process document **[HERE](process.md)**
 	- [Data life cycle](#data-life-cycle)
 - [Offline](#offline)
 - [Tools](#tools)
-- [To do](#to-do)
+- [Wishlist](#wish-list)
 
 
 # Getting started
@@ -36,8 +36,9 @@ The following features are/will be added to application:
 - Ability to add rooms with your spotify playlist as base (You must be logged in)
 
 **To be added**
-- Listening to music in rooms
 - Creating Private rooms
+- Listening to music in rooms
+<!-- Implemented but need to test with spotify users) -->
 
 
 # API
@@ -75,7 +76,7 @@ This application mages use of [MongoDB][mongodb] and uses [mongoose][mongoose] a
 ## Data life cycle
 This is overal view of the data cycle in the application.
 
-![](doc/images/cycle.jpg)
+![](doc/images/cycle.png)
 
 # Offline
 After looking at a few checkers for internet connection.
@@ -96,22 +97,30 @@ Here are the tools used
 The following tools are used:
 - Server: Express (Node.js)
 - Template engine: Pug
-- Bundler: Browserify?
+- Bundler: Browserify
 - Code formatter: Prettier
 - Socket.io
 
 <!-- Maybe a checklist of done stuff and stuff still on your wishlist? ✅ -->
-# To do
+# Wish list
 - [x] Update the playlist in the room after adding a track
 - [ ] Create private rooms
 - [ ] Inviting people to private rooms
 - [x] Have a dropdown(or something similar) for selecting playlists when creating a room
-- [ ] Play tracks in a room
+- [x] Play tracks in a room
 - [ ] Fix the view when a album name is too long (in detail page)
-- [ ] Implemment the refreshtokens from the api
+- [ ] Implement the refreshtokens from the api
 - [ ] Able to select where you want to add a track to (which room)
+- [ ] Give feedback on adding track to a room
+- [ ] Give feedback on removing track from a room
+- [ ] Able to see who/how many participants are in a room
 
-
+# Challenges
+The challenges I encountered whil making this:
+- The somehow obscure but clean (I know vague) documentation of spotify and the wrapper package.
+- Implementing MongoDB as I have not used it before
+- Passing server data through the template to clientside JS
+- Getting the Spotify Web API and Playback API working (Made some mistakes here and there)
 
 # License
 MIT © Kang Yun Wang
