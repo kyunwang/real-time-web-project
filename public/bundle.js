@@ -1,4 +1,8 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+
+},{}],2:[function(require,module,exports){
+const fs = require('fs');
+
 exports.$ = function(element) {
 	return document.querySelector(element);
 };
@@ -56,7 +60,7 @@ exports.milliToMinSec = function(millis) {
 	return `${d.getUTCMinutes()}:${seconds}`;
 };
 
-exports.icon = name => fs.readFileSync(`./public/images/icons/${name}.svg`);
+exports.icon = name => fs.readFileSync(`./public/icons/${name}.svg`);
 
 exports.topMenu = [
 	{ slug: '/', title: 'New releases' },
@@ -64,9 +68,13 @@ exports.topMenu = [
 	// { slug: '/map', title: 'Map' },
 ];
 
-exports.sideMenu = [{}];
+exports.sideMenu = [
+	{ slug: '/', title: 'home', icon: 'icon' },
+	{ slug: '/rooms', title: 'rooms', icon: 'room' },
+	{ slug: '/login', title: 'login', icon: 'sign-in' },
+];
 
-},{}],2:[function(require,module,exports){
+},{"fs":1}],3:[function(require,module,exports){
 const { room, playlist } = require('./trackModule');
 
 if (typeof accessToken != 'undefined') {
@@ -147,7 +155,7 @@ if (typeof accessToken != 'undefined') {
 	room.init();
 }
 
-},{"./trackModule":3}],3:[function(require,module,exports){
+},{"./trackModule":4}],4:[function(require,module,exports){
 const { $, $$, addEvent, createNode, milliToMinSec } = require('./helpers');
 
 const socket = io();
@@ -256,4 +264,4 @@ const room = {
 module.exports.room = room;
 module.exports.playlist = playlist;
 
-},{"./helpers":1}]},{},[2]);
+},{"./helpers":2}]},{},[3]);

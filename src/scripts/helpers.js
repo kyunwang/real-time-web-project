@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 exports.$ = function(element) {
 	return document.querySelector(element);
 };
@@ -55,7 +57,7 @@ exports.milliToMinSec = function(millis) {
 	return `${d.getUTCMinutes()}:${seconds}`;
 };
 
-exports.icon = name => fs.readFileSync(`./public/images/icons/${name}.svg`);
+exports.icon = name => fs.readFileSync(`./public/icons/${name}.svg`);
 
 exports.topMenu = [
 	{ slug: '/', title: 'New releases' },
@@ -63,4 +65,8 @@ exports.topMenu = [
 	// { slug: '/map', title: 'Map' },
 ];
 
-exports.sideMenu = [{}];
+exports.sideMenu = [
+	{ slug: '/', title: 'home', icon: 'icon' },
+	{ slug: '/rooms', title: 'rooms', icon: 'room' },
+	{ slug: '/login', title: 'login', icon: 'sign-in' },
+];
