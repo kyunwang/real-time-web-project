@@ -254,7 +254,7 @@ li {
 
 	main {
 		grid-area: music-list;
-		width: 98vw;
+		width: 100%;
 		::-webkit-scrollbar { 
 			display: none; 
 		}
@@ -269,7 +269,6 @@ li {
 
 	.music__header {
 		grid-area: header;
-		grid-column-start: 2;
 		align-self: end;
 		position: relative;
 
@@ -297,7 +296,7 @@ li {
 		}
 
 		main {
-			
+			width: 98vw;
 		}
 
 	
@@ -339,6 +338,10 @@ li {
 					font-size: 2em;
 				}
 			}
+		}
+
+		.music__header {
+			grid-column-start: 2;
 		}
 
 

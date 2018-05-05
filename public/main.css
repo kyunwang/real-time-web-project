@@ -158,7 +158,7 @@ li {
     grid-template-areas: "header" "music-list" "music-player"; }
   main {
     grid-area: music-list;
-    width: 98vw; }
+    width: 100%; }
     main ::-webkit-scrollbar {
       display: none; }
   .content__container {
@@ -167,7 +167,6 @@ li {
     margin: 0 1.5rem; }
   .music__header {
     grid-area: header;
-    grid-column-start: 2;
     align-self: end;
     position: relative; }
     .music__header h2 {
@@ -183,6 +182,8 @@ li {
     body {
       grid-template-columns: 5rem auto;
       grid-template-rows: 10rem 1fr 6rem; }
+    main {
+      width: 98vw; }
     .content__container {
       grid-template-rows: 1fr 1fr;
       grid-template-columns: 5em;
@@ -208,6 +209,8 @@ li {
         grid-column: span 3; }
         .content__container li:first-of-type p {
           font-size: 2em; }
+    .music__header {
+      grid-column-start: 2; }
     .music__detail {
       display: grid;
       width: calc(100% - 12rem);
