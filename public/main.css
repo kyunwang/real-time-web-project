@@ -203,8 +203,9 @@ li {
         background: linear-gradient(-90deg, var(--black) 0%, transparent 100%);
         padding: 2em; }
       .content__container li:first-of-type {
+        margin-left: 5em;
         grid-row: span 2;
-        grid-column: span 2; }
+        grid-column: span 3; }
         .content__container li:first-of-type p {
           font-size: 2em; }
     .music__detail {

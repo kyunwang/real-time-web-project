@@ -332,8 +332,9 @@ li {
 			}
 
 			li:first-of-type {
+				margin-left: 5em;
 				grid-row: span 2;
-				grid-column: span 2;
+				grid-column: span 3;
 				p {
 					font-size: 2em;
 				}
