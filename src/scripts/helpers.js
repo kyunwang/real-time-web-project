@@ -23,7 +23,14 @@ exports.createNode = function(element = 'li', text = '', className, idName, data
 	}
 
 	if (className) {
-		node.classList.add(className);
+		// Meaning an array(Object)
+		if (typeof className === 'object' && className.length > 1) {
+			className.forEach(classN => {
+				node.classList.add(classN);
+			});
+		} else {
+			node.classList.add(className);
+		}
 	}
 
 	if (idName) {

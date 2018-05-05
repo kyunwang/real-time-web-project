@@ -31,7 +31,8 @@ block content
 						td= h.milliToMinSec(track.duration_ms) 
 						if loggedIn
 							td
-								button(class="track__add" data-track-id=track.id) + 
+								button(class="track__action track__add" data-track-id=track.id)
+									!= h.icon('add') 
 
 
 	script(src="/public/offline.js")

@@ -238,3 +238,17 @@ form {
   display: flex;
   flex-direction: column;
   margin: 0 6rem; }
+
+/*==========================
+=== Button icons
+===========================*/
+.track__action {
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: center;
+  cursor: pointer; }
+  .track__action svg {
+    height: 1.5rem;
+    width: 1.5rem;
+    fill: var(--white); }

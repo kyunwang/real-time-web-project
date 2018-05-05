@@ -13,7 +13,7 @@ block content
 			div
 				img(src=data.playlist.image.url, alt="")
 			if data.playlist.tracks.length
-				table
+				table.room__playlist
 					tr
 						th Title
 						th Duration
@@ -29,10 +29,11 @@ block content
 							td= track.name
 							td= h.milliToMinSec(track.duration_ms)
 							td
-								button(class="track__playBtn" data-track-uri=`spotify:track:${track.id}` data-track-index=index) play
+								button(class="track__action  track__playBtn" data-track-uri=`spotify:track:${track.id}` data-track-index=index)!= h.icon('play')
 							if isOwner
 								td
-									button(class="track__remove" data-track-id=track.id data-track-index=index) -
+									button(class="track__action  track__remove" data-track-id=track.id data-track-index=index)
+										!= h.icon('remove')
 			else
 				p There are no tracks added to this room yet. Why not add one yourself?
 
