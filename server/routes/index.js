@@ -28,6 +28,7 @@ router.post('/rooms/new-room', isLoggedIn, roomController.addRoom);
 
 // User controller
 router.get('/login', accountController.login);
+router.get('/logout', accountController.resetAuth);
 router.get('/auth', accountController.authorize);
 
 function isLoggedIn(req, res, next) {

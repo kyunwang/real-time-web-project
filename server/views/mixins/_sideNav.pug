@@ -3,11 +3,26 @@ mixin sideNav()
 		ul
 			each link in h.sideMenu
 				li
-					a(href=link.slug)
-						if link.title === 'home'
-							!= h.icon(link.icon)
-						else
-							div.small!= h.icon(link.icon)
-						//- if link.title
-							p= link.title
+					if link.title === 'account'
+						- let loggedIn = 0
+						//- if user
+							- loggedIn = 1
+							
+						a(href=link.links[loggedIn].slug)
+							//- pre= h.dump(user)
+							//- pre= h.dump(link.links[loggedIn])
+							
+							div.small!= h.icon(link.links[loggedIn].icon)
+							if link.links[loggedIn].title
+								p= link.links[loggedIn].title
+
+					else 
+						a(href=link.slug)
+							if link.title === 'home'
+								!= h.icon(link.icon)
+							else
+								div.small!= h.icon(link.icon)
+								if link.title
+									p= link.title
+		//- pre= h.dump(user)
 		

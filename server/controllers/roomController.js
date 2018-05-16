@@ -28,8 +28,7 @@ exports.roomForm = async (req, res) => {
 exports.addRoom = async (req, res) => {
 	// console.log('REQ', req.body);
 	try {
-		const user = await spotifyApi.getMe();
-		// console.log(user.body, user.body.id);
+		// const user = await spotifyApi.getMe();
 
 		const playlist = await spotifyApi.getPlaylist(req.session.userId, req.body.playlist, options);
 
@@ -40,10 +39,10 @@ exports.addRoom = async (req, res) => {
 			tracks: data.tracks.items,
 		};
 
-		req.body.owner = user.body.id;
+		req.body.owner = req.session.userId;
 		req.body.playlist = modifiedPlaylist;
 	} catch (err) {
-		console.error(err);
+		return console.error(err);
 	}
 
 	req.body.public = Boolean(req.body.public);

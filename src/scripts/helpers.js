@@ -75,5 +75,11 @@ exports.topMenu = [
 exports.sideMenu = [
 	{ slug: '/', title: 'home', icon: 'icon' },
 	{ slug: '/rooms', title: 'rooms', icon: 'room' },
-	{ slug: '/login', title: 'login', icon: 'sign-in' },
+	{
+		title: 'account',
+		links: [
+			{ slug: '/login', title: 'login', icon: 'sign-in' },
+			{ slug: '/logout', title: 'logout', icon: 'sign-out' },
+		],
+	},
 ];

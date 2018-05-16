@@ -42,6 +42,7 @@ app.use(sessionMiddleware);
 // Add global middleware available in templates and all routes
 app.use((req, res, next) => {
 	res.locals.h = helpers;
+	res.locals.user = req.session.user;
 	req.spotifyApi = spotifyApi;
 	next();
 });

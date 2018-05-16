@@ -26,13 +26,11 @@ exports.authorize = async (req, res) => {
 		// Get the user and save basic data in database for room allocation
 		const theUser = await spotifyApi.getMe();
 
-		// console.log(User.findOne({ _id: theUser.body.id }, { lean: true }));
-		// console.log(User.findOne({ _id: theUser.body.id }));
-
-		// const userExists =
 		User.findOne({ spotifyId: theUser.body.id }, async function(err, data) {
 			if (err) console.log(err);
-			// console.log('data', data);
+			console.log('Create user');
+
+			console.log('data', data);
 			if (!data) {
 				console.log('User not found');
 				const newUser = await new User({
@@ -44,34 +42,27 @@ exports.authorize = async (req, res) => {
 			// return data;
 		});
 
+		req.session.user = theUser.body;
+		// console.log(theUser.body);
+
 		req.session.authenticated = true;
 		req.session.userId = theUser.body.id;
 		req.session.username = theUser.body.display_name;
 
 		res.redirect('/');
-	} catch (err) {}
-
-	// .then(
-	// 	function(data) {
-	// 		console.log('GRANT USER TOKEN');
-	// 		// console.log('The token expires in ' + data.body['expires_in']);
-	// 		console.log(data);
-
-	// 		// Set the access token on the API object to use it in later calls
-	// 		spotifyApi.setAccessToken(data.body['access_token']);
-	// 		spotifyApi.setRefreshToken(data.body['refresh_token']);
-
-	// 		spotifyApi.getMe()
-
-	// 		res.redirect('/releases');
-	// 	},
-	// 	function(err) {
-	// 		console.log('Something went wrong!', err);
-	// 	}
-	// );
+	} catch (err) {
+		return console.error(err);
+	}
 };
 
 // To logout as user? Still in debate
 exports.resetAuth = (req, res) => {
-	// spotifyApi.resetCredentials();
+	spotifyApi.resetCredentials();
+
+	req.session.user = null;
+	req.session.authenticated = null;
+	req.session.userId = null;
+	req.session.username = null;
+
+	res.redirect('/');
 };
