@@ -26,11 +26,11 @@ exports.authorize = async (req, res) => {
 		// Get the user and save basic data in database for room allocation
 		const theUser = await spotifyApi.getMe();
 
-		User.findOne({ spotifyId: theUser.body.id }, async function(err, data) {
-			if (err) console.log(err);
+		User.findOne({ spotifyId: theUser.body.id }, function(err, data) {
+			if (err) return console.error(err);
 			console.log('Create user');
 
-			console.log('data', data);
+			// console.log('data', data);
 			if (!data) {
 				console.log('User not found');
 				const newUser = await new User({

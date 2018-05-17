@@ -15,6 +15,7 @@ The process document **[HERE](process.md)**
 	- [Data retention](#data-retention)
 	- [Data life cycle](#data-life-cycle)
 - [Offline](#offline)
+- [Events](#events)
 - [Tools](#tools)
 - [Wishlist](#wish-list)
 
@@ -29,16 +30,17 @@ If you want to work on this project, follow these steps:
 
 # Features
 The following features are/will be added to application:
+
 **Added**
 - Add tracks to a public playlist
 - See the playlist updating live in public rooms
 - Edit playlists (As the room owner only) e.g. deleting tracks
 - Ability to add rooms with your spotify playlist as base (You must be logged in)
+- Creating Private rooms
+- Listening to music in rooms (Currently only play (not pause ect.))
+
 
 **To be added**
-- Creating Private rooms
-- Listening to music in rooms
-<!-- Implemented but need to test with spotify users) -->
 
 
 # API
@@ -88,6 +90,14 @@ After looking at a few checkers for internet connection.
 - Using socket events to check
 
 I have decided to use `Offline.js` as it makes the integration simpler, easier and quicker.
+
+
+# Events
+These are the socket events for the prototype.
+- **addTrack**: Adds a track to a room (currently only to the 'Public room')
+- **removeTrack**: Removes a track from a room (Needs to be the owner of the room)
+- **joinRoom**: A user automatically joins a room when, well when he/she enters one 
+- **playListTrack**: Plays a track in a room and sends it to all the clients in the same room
 
 
 # Tools
