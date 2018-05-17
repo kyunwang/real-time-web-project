@@ -407,6 +407,67 @@ form {
 	margin: 0 6rem;
 }
 
+.form--room {
+	p,
+	label {
+		font-weight: 700;
+		font-size: 1.4rem;
+		margin-bottom: .3rem;
+	}
+
+	input,
+	select {
+		margin-bottom: 1.6rem;
+		font-size: 1rem;
+	}
+
+	[type="text"] {
+		height: 2rem;
+		background: none;
+		border: none;
+		border-bottom: .1rem solid var(--primary-color);
+		color: var(--white);
+	}
+
+	[type="submit"] {
+		color: var(--primary-color);
+		font-size: 1rem;
+		font-weight: 600;
+		width: 10rem;
+		border: .1rem solid var(--primary-color);
+		padding: .5rem;
+		background: none;
+
+
+		transition: transform var(--def-transition);
+		&:hover,
+		&:focus {
+			transform: translateY(-.3rem);
+		}
+	}
+
+	[for="type-public"] {
+		margin-right: 2rem;
+	}
+}
+
+.form--checkbox-con {
+	label {
+		font-size: 1rem;
+	}
+}
+
+@media all and (min-width: 43em) {
+	.form--room {
+		input,
+		select {
+			max-width: 50%;
+		}
+	}
+}
+
+
+
 /*==========================
 === Button icons
 ===========================*/

@@ -11,9 +11,9 @@ block content
 		+sideNav()
 
 		b
-		form(action=`/rooms/new-room` method="POST")
+		form(action=`/rooms/new-room` method="POST").form--room
 			label(for="name") Room name
-			input(id="name" type="text" name="name" value="Public Room")
+			input(id="name" type="text" name="name" value="Public Room" placeholder="Enter your roomname")
 			
 			label(for="playlist") Use playlist
 			select(name="playlist")
@@ -21,9 +21,10 @@ block content
 					option(value=list.id)= list.name
 
 			p Room type
-			label(for="type-public") Public
-			input(id="type-public" type="radio" name="public" value="true" checked)
-			label(for="type-private") Private
-			input(id="type-private" type="radio" name="public" value="")
+			div.form--checkbox-con
+				input(id="type-public" type="radio" name="public" value="true" checked)
+				label(for="type-public") Public
+				input(id="type-private" type="radio" name="public" value="")
+				label(for="type-private") Private
 
 			input(type="submit" value="Add Room")

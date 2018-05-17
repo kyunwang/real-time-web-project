@@ -21,7 +21,7 @@ exports.privateRooms = async (req, res) => {
 		public: false,
 		$or: [{ owner: req.session.userId }, { members: { $in: [req.session.userId] } }],
 	});
-	console.log('ROOMS', rooms);
+	// console.log('ROOMS', rooms);
 
 	res.render('roomSelect', { rooms });
 };
