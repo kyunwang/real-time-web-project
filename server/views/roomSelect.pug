@@ -8,8 +8,9 @@ block content
 		ul
 			li
 				a(class="current" href="/rooms") Public rooms
-			li
-				a(class="" href="/") My rooms
+			if user	
+				li
+					a(class="" href="/rooms/private") My rooms
 			li
 				a(class="" href="/rooms/new-room") Add room
 

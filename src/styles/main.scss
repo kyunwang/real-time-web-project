@@ -80,6 +80,9 @@ li {
 	ul {
 		display: flex;
 	}
+	p {
+		font-weight: 600;
+	}
 }
 
 
@@ -149,7 +152,7 @@ li {
 		}
 	
 		p {
-			font-size: .8rem;
+			font-size: .7rem;
 			margin: 0;
 			text-transform: uppercase;				
 		}

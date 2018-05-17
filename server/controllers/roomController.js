@@ -10,8 +10,18 @@ const publicPlaylistId = '7mCLaqlcQ61U9HPMbGXwUd';
 const options = { country: 'US' };
 
 exports.showRooms = async (req, res) => {
-	const rooms = await Room.find();
+	const rooms = await Room.find({ public: true });
 	// console.log('ROOMS', rooms);
+
+	res.render('roomSelect', { rooms });
+};
+
+exports.privateRooms = async (req, res) => {
+	const rooms = await Room.find({
+		public: false,
+		$or: [{ owner: req.session.userId }, { members: { $in: [req.session.userId] } }],
+	});
+	console.log('ROOMS', rooms);
 
 	res.render('roomSelect', { rooms });
 };

@@ -13,7 +13,7 @@ const roomSchema = new mongoose.Schema({
 	},
 	public: {
 		type: Boolean,
-		default: true,
+		// default: true,
 	},
 	owner: {
 		type: Number,

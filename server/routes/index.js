@@ -23,6 +23,7 @@ router.get('/album/:id', musicController.albumDetail);
 // Rooms
 router.get('/rooms', roomController.showRooms);
 router.get('/room/:slug', roomController.singleRoom);
+router.get('/rooms/private', isLoggedIn, roomController.privateRooms);
 router.get('/rooms/new-room', isLoggedIn, roomController.roomForm);
 router.post('/rooms/new-room', isLoggedIn, roomController.addRoom);
 
