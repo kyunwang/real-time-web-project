@@ -72,6 +72,12 @@ exports.topMenu = [
 	// { slug: '/map', title: 'Map' },
 ];
 
+exports.topMenuRoom = [
+	{ slug: '/rooms', title: 'Public rooms' },
+	{ slug: '/rooms/private', title: 'My rooms' },
+	{ slug: '/rooms/new-room', title: 'Add room', needUser: true },
+];
+
 exports.sideMenu = [
 	{ slug: '/', title: 'home', icon: 'icon' },
 	{ slug: '/rooms', title: 'rooms', icon: 'room' },

@@ -13,7 +13,7 @@ exports.showRooms = async (req, res) => {
 	const rooms = await Room.find({ public: true });
 	// console.log('ROOMS', rooms);
 
-	res.render('roomSelect', { rooms });
+	res.render('roomSelect', { rooms, currentPath: req.route.path });
 };
 
 exports.privateRooms = async (req, res) => {
@@ -23,14 +23,19 @@ exports.privateRooms = async (req, res) => {
 	});
 	// console.log('ROOMS', rooms);
 
-	res.render('roomSelect', { rooms });
+	res.render('roomSelect', { rooms, currentPath: req.route.path });
 };
 
 exports.roomForm = async (req, res) => {
 	// Get user playlists
-	const userPlaylists = await spotifyApi.getUserPlaylists(req.session.userId, options);
+	let playlists = [];
+	try {
+		const userPlaylists = await spotifyApi.getUserPlaylists(req.session.userId, options);
 
-	const playlists = userPlaylists.body.items;
+		playlists = userPlaylists.body.items;
+	} catch (err) {
+		console.error(err);
+	}
 
 	res.render('roomForm', { playlists });
 };
@@ -51,13 +56,12 @@ exports.addRoom = async (req, res) => {
 
 		req.body.owner = req.session.userId;
 		req.body.playlist = modifiedPlaylist;
+
+		req.body.public = Boolean(req.body.public);
+		const newRoom = await new Room(req.body).save();
 	} catch (err) {
 		return console.error(err);
 	}
-
-	req.body.public = Boolean(req.body.public);
-
-	const newRoom = await new Room(req.body).save();
 
 	// res.redirect(`/room/${newRoom.id}`);
 	res.redirect(`/rooms`);

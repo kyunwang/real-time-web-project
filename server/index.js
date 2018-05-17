@@ -43,6 +43,7 @@ app.use(sessionMiddleware);
 app.use((req, res, next) => {
 	res.locals.h = helpers;
 	res.locals.user = req.session.user;
+	res.locals.userId = req.session.userId;
 	req.spotifyApi = spotifyApi;
 	next();
 });

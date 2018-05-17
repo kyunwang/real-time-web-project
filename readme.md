@@ -101,10 +101,13 @@ The following tools are used:
 - Code formatter: Prettier
 - Socket.io
 
-<!-- Maybe a checklist of done stuff and stuff still on your wishlist? ✅ -->
+# Todo
+- [ ] Give user feedback on actions
+- [ ] Add better errorhandling
+
 # Wish list
 - [x] Update the playlist in the room after adding a track
-- [ ] Create private rooms
+- [x] Create private rooms
 - [ ] Inviting people to private rooms
 - [x] Have a dropdown(or something similar) for selecting playlists when creating a room
 - [x] Play tracks in a room

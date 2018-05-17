@@ -1,6 +1,11 @@
-mixin topNav()
+mixin topNav(menu = [])
 	nav.nav--top
 		ul
-			each link in h.topMenu
-				li
-					a(class=(currentPath === link.slug && 'current') href=link.slug)= link.title
+			each link in menu
+				if userId && link.needUser
+					li
+						a(class=(currentPath === link.slug && 'current') href=link.slug)= link.title
+
+				if !link.needUser
+					li
+						a(class=(currentPath === link.slug && 'current') href=link.slug)= link.title

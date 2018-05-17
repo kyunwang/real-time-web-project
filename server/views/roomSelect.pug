@@ -1,34 +1,19 @@
 extends layout
 
+include mixins/_topNav
 include mixins/_sideNav
 include mixins/_roomList
 
 block content
-	nav.nav--top
-		ul
-			li
-				a(class="current" href="/rooms") Public rooms
-			if user	
-				li
-					a(class="" href="/rooms/private") My rooms
-			li
-				a(class="" href="/rooms/new-room") Add room
+	+topNav(h.topMenuRoom)
 
 	main
 		+sideNav()
 		
-
-		//- section.music__overview
-		//- section.content__container
-			
-
 		ul.content__container
 			if rooms
 				each room in rooms
 					li
 						+roomList(room)
 		
-			//- li
-				a(href="/rooms/new-room") New room
-
 	//- pre= h.dump(rooms)
