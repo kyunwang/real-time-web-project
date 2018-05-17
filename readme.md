@@ -105,6 +105,8 @@ The following tools are used:
 - [ ] Give user feedback on actions
 - [ ] Add better errorhandling
 
+- [ ] To Fix: Other users cannot make rooms (will result into an error)
+
 # Wish list
 - [x] Update the playlist in the room after adding a track
 - [x] Create private rooms
