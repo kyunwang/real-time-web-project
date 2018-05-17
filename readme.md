@@ -1,6 +1,8 @@
 # Playlist collab
 This is a Conceptual prototype of a Music player where people can listen to music from the [Spotify API][api]. There is a public playlist where the guests/users can add tracks to.
 
+![Screenshot of the homepage of the app](doc/images/demo.png)
+
 The process document **[HERE](process.md)**
 
 *This is a prototype with the goal to learn about sockets and spotify api*
