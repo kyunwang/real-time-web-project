@@ -70,23 +70,19 @@ function sockets(io, sessionMiddleware) {
 		}
 
 		function removeTrack(trackId) {
-			console.log('removing track', trackId);
-
 			Room.update(
 				{ name: currentRoom },
 				{ $pull: { 'playlist.tracks': { id: trackId } } },
 				{ safe: true, upsert: true }
-			)
-				.then(room => {
-					// Send to everyone in room including sender
-					io.sockets.in('Public Room').emit('removeTrack', trackId);
-				})
-				.catch(err => console.error(err));
+			).then(room => {
+				// Send to everyone in room including sender
+				io.sockets.in('Public Room').emit('removeTrack', trackId);
+			})
+			.catch(err => console.error(err));
 		}
 
 		function playListTrack(trackUri) {
 			console.log(trackUri);
-
 			io.sockets.in('Public Room').emit('playListTrack', trackUri);
 		}
 	});

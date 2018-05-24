@@ -22,8 +22,7 @@ block content
 							th
 
 					each track, index in data.playlist.tracks
-						if track.track
-							- track = track.track
+						//- pre= h.dump(track)
 
 						tr(id=track.id)
 							td= track.name

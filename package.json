@@ -15,7 +15,7 @@
 	"main": "server/index.js",
 	"scripts": {
 		"start": "node server/index.js",
-		"dev": "nodemon server/index.js",
+		"dev": "nodemon server/index.js --inspect",
 		"dev:expose": "nodemon server/index.js & npm run expose",
 		"watch": "npm run watch:css & npm run watch:js & npm run dev",
 		"watch:css": "node-sass --watch src/styles --output public/",

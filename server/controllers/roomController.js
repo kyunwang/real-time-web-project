@@ -48,7 +48,7 @@ exports.addRoom = async (req, res) => {
 		const modifiedPlaylist = {
 			name: data.name,
 			image: data.images[0],
-			tracks: data.tracks.items,
+			tracks: data.tracks.items.map(item => (item.track)),
 		};
 
 		req.body.owner = req.session.userId;
